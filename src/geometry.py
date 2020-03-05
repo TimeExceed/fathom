@@ -11,9 +11,9 @@ class Point:
     def __eq__(self, other):
         if type(self) != type(other):
             return False
-        if math.fabs(self.x - other.x) >= 0.01:
+        if math.fabs(self.x - other.x) >= 0.005:
             return False
-        if math.fabs(self.y - other.y) >= 0.01:
+        if math.fabs(self.y - other.y) >= 0.005:
             return False
         return True
 
@@ -41,48 +41,48 @@ class WithVertices:
     def center(self):
         return centroid(self.vertices())
 
-class Arrow(WithVertices):
-    def __init__(self, from_pt, to_pt):
-        assert type(from_pt) == Point, type(from_pt)
-        assert type(to_pt) == Point, type(to_pt)
-        self.from_pt = from_pt
-        self.to_pt = to_pt
-
     def __eq__(self, other):
         if type(self) != type(other):
             return False
-        if self.from_pt != other.from_pt:
-            return False
-        if self.to_pt != other.to_pt:
+        if self.vertices() != other.vertices():
             return False
         return True
 
+class Arrow(WithVertices):
+    def __init__(self, **kws):
+        src = kws['src']
+        assert type(src) == Point, type(src)
+        dst = kws['dst']
+        assert type(dst) == Point, type(dst)
+        self.src = src
+        self.dst = dst
+
     def __repr__(self):
-        return '({} to {})'.format(self.from_pt, self.to_pt)
+        return '({} to {})'.format(self.src, self.dst)
 
     def length(self):
-        p2 = self.from_pt - self.to_pt
+        p2 = self.src - self.dst
         return math.sqrt(p2.x * p2.x + p2.y * p2.y)
 
     def vertices(self):
-        return [self.from_pt, self.to_pt]
+        return [self.src, self.dst]
 
     def intersect_line(self, other_arr):
-        norm_target = other_arr.to_pt - other_arr.from_pt
+        norm_target = other_arr.dst - other_arr.src
         norm_self = Arrow(
-            self.from_pt - other_arr.from_pt,
-            self.to_pt - other_arr.from_pt)
+            src=self.src - other_arr.src,
+            dst=self.dst - other_arr.src)
         intersected_pt = norm_self._intersect(norm_target)
         if intersected_pt is None:
             return None
         else:
-            return intersected_pt + other_arr.from_pt
+            return intersected_pt + other_arr.src
 
     def _intersect(self, target_pt):
-        x0 = self.from_pt.x
-        y0 = self.from_pt.y
-        x1 = self.to_pt.x
-        y1 = self.to_pt.y
+        x0 = self.src.x
+        y0 = self.src.y
+        x1 = self.dst.x
+        y1 = self.dst.y
         x2 = target_pt.x
         y2 = target_pt.y
         xx = x1 - x0
@@ -101,23 +101,25 @@ class Arrow(WithVertices):
                 x = 1 / (b * c + a)
                 y = x * c
                 res = Point(x, y)
-        if Arrow(origin, target_pt)._inside(res) and self._inside(res):
+        if Arrow(src=origin, dst=target_pt)._inside(res) and self._inside(res):
             return res
         else:
             return None
 
     def _inside(self, pt):
         c = self.length()
-        a = Arrow(pt, self.from_pt).length()
-        b = Arrow(pt, self.to_pt).length()
+        a = Arrow(src=pt, dst=self.src).length()
+        b = Arrow(src=pt, dst=self.dst).length()
         if a == 0 or b == 0:
             return True
         else:
             return (a*a + b*b - c*c) < 0
 
 class Circle:
-    def __init__(self, center, radius):
+    def __init__(self, **kws):
+        center = kws['center']
         assert type(center) == Point, type(center)
+        radius = kws['radius']
         assert radius > 0, radius
         self._center = center
         self.radius = float(radius)
@@ -137,14 +139,63 @@ class Circle:
     def center(self):
         return self._center
 
-    def intersect_from_center(self, to_pt):
-        p = to_pt - self.center()
-        l = Arrow(origin, p).length()
+    def intersect_from_center(self, dst):
+        p = dst - self.center()
+        l = Arrow(src=origin, dst=p).length()
         if l < self.radius:
             return None
         x = p.x * self.radius / l
         y = p.y * self.radius / l
         return Point(x, y) + self.center()
+
+class Rectangle(WithVertices):
+    def __init__(self, **kws):
+        center = kws.get('center')
+        if center is not None:
+            assert type(center) == Point, type(center)
+            width = kws['width']
+            assert width > 0, width
+            height = kws['height']
+            assert height > 0, height
+            half_width = float(width) / 2
+            half_height = float(height) / 2
+            corners = [
+                Point(-half_width, half_height),
+                Point(half_width, half_height),
+                Point(half_width, -half_height),
+                Point(-half_width, -half_height),
+            ]
+            self._vertices = [p + center for p in corners]
+        else:
+            vertices = kws['vertices']
+            top = Arrow(src=vertices[0], dst=vertices[1]).length()
+            bottom = Arrow(src=vertices[2], dst=vertices[3]).length()
+            assert top == bottom, 'top={:.2f} bottom={:.2f}'.format(top, bottom)
+            left = Arrow(src=vertices[0], dst=vertices[3]).length()
+            right = Arrow(src=vertices[2], dst=vertices[1]).length()
+            assert left == right, 'left={:.2f} right={:.2f}'.format(left, right)
+            diagonal = Arrow(src=vertices[1], dst=vertices[3]).length()
+            assert math.fabs(top*top + left*left - diagonal*diagonal) < 0.005,\
+                'left={:.2f} top={:.2f} diagonal={:.2f}'.format(left, top, diagonal)
+            self._vertices = vertices
+
+    def __repr__(self):
+        return '(Rectangle center={} width={:.2f} height={:.2f})'.format(
+            self.center(),
+            self.width(),
+            self.height(),
+        )
+
+    def vertices(self):
+        return self._vertices
+
+    def width(self):
+        vertices = self.vertices()
+        return Arrow(src=vertices[1], dst=vertices[0]).length()
+
+    def height(self):
+        vertices = self.vertices()
+        return Arrow(src=vertices[1], dst=vertices[2]).length()
 
 if __name__ == '__main__':
     p0 = Point(3, 4)
