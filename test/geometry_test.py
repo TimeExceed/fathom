@@ -1,4 +1,5 @@
 import testa
+from math import sqrt
 from geometry import *
 from itertools import *
 
@@ -75,6 +76,42 @@ def intersect_exhaustive_verifier(res, a0, a1):
 @testa.is_(expect=Point(1, 1))
 def arrow_center():
     return Arrow(origin, Point(2, 2)).center()
+
+@testa.is_(expect=origin)
+def circle_center():
+    return Circle(origin, 1).center()
+
+@testa.is_(expect=Point(2, 3))
+def circle_intersect_north():
+    return Circle(Point(2, 2), 1).intersect_from_center(Point(2, 4))
+
+@testa.is_(expect=Point(3, 2))
+def circle_intersect_east():
+    return Circle(Point(2, 2), 1).intersect_from_center(Point(4, 2))
+
+@testa.is_(expect=Point(2, 1))
+def circle_intersect_south():
+    return Circle(Point(2, 2), 1).intersect_from_center(Point(2, 0))
+
+@testa.is_(expect=Point(1, 2))
+def circle_intersect_west():
+    return Circle(Point(2, 2), 1).intersect_from_center(Point(0, 2))
+
+@testa.is_(expect=Point(2, 2) + Point(1/sqrt(2), 1/sqrt(2)))
+def circle_intersect_northeast():
+    return Circle(Point(2, 2), 1).intersect_from_center(Point(4, 4))
+
+@testa.is_(expect=Point(2, 2) + Point(1/sqrt(2), -1/sqrt(2)))
+def circle_intersect_southeast():
+    return Circle(Point(2, 2), 1).intersect_from_center(Point(4, 0))
+
+@testa.is_(expect=Point(2, 2) + Point(-1/sqrt(2), 1/sqrt(2)))
+def circle_intersect_northwest():
+    return Circle(Point(2, 2), 1).intersect_from_center(Point(0, 4))
+
+@testa.is_(expect=Point(2, 2) + Point(-1/sqrt(2), -1/sqrt(2)))
+def circle_intersect_southwest():
+    return Circle(Point(2, 2), 1).intersect_from_center(origin)
 
 if __name__ == '__main__':
     testa.main()

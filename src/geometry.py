@@ -49,6 +49,8 @@ class Arrow(WithVertices):
         self.to_pt = to_pt
 
     def __eq__(self, other):
+        if type(self) != type(other):
+            return False
         if self.from_pt != other.from_pt:
             return False
         if self.to_pt != other.to_pt:
@@ -112,6 +114,37 @@ class Arrow(WithVertices):
             return True
         else:
             return (a*a + b*b - c*c) < 0
+
+class Circle:
+    def __init__(self, center, radius):
+        assert type(center) == Point, type(center)
+        assert radius > 0, radius
+        self._center = center
+        self.radius = float(radius)
+
+    def __repr__(self):
+        return '(Circle center={} radius={})'.format(self._center, self.radius)
+
+    def __eq__(self, other):
+        if type(self) != type(other):
+            return False
+        if self._center != other._center:
+            return False
+        if self.radius != other.radius:
+            return False
+        return True
+
+    def center(self):
+        return self._center
+
+    def intersect_from_center(self, to_pt):
+        p = to_pt - self.center()
+        l = Arrow(origin, p).length()
+        if l < self.radius:
+            return None
+        x = p.x * self.radius / l
+        y = p.y * self.radius / l
+        return Point(x, y) + self.center()
 
 if __name__ == '__main__':
     p0 = Point(3, 4)
