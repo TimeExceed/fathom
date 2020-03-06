@@ -1,4 +1,5 @@
 import math
+from itertools import cycle
 
 class Point:
     def __init__(self, x, y):
@@ -47,6 +48,20 @@ class WithVertices:
         if self.vertices() != other.vertices():
             return False
         return True
+
+    def edges(self):
+        vs = self.vertices()
+        nvs = cycle(vs)
+        next(nvs)
+        return [Arrow(src=p0, dst=p1) for p0, p1 in zip(vs, nvs)]
+
+    def intersect_from_center(self, target):
+        assert type(target) == Point, type(target)
+        center_line = Arrow(src=self.center(), dst=target)
+        for e in self.edges():
+            res = center_line.intersect_line(e)
+            if res is not None:
+                return res
 
 class Arrow(WithVertices):
     def __init__(self, **kws):
@@ -197,8 +212,54 @@ class Rectangle(WithVertices):
         vertices = self.vertices()
         return Arrow(src=vertices[1], dst=vertices[2]).length()
 
-if __name__ == '__main__':
-    p0 = Point(3, 4)
-    p1 = Point(0, 0)
-    l = Arrow(p0, p1)
-    print(l.center())
+class Triangle(WithVertices):
+    def __init__(self, **kws):
+        vertices = kws.get('vertices')
+        if vertices is not None:
+            self._vertices = vertices
+        else:
+            center = kws['center']
+            assert type(center) == Point, type(center)
+            width = float(kws['width'])
+            assert width > 0, width
+            height = float(kws['height'])
+            assert height > 0, height
+            corners = [
+                Point(-width / 2, -height / 3),
+                Point(0, height * 2 / 3),
+                Point(width / 2, -height / 3),
+            ]
+            self._vertices = [(center + x) for x in corners]
+
+    def __repr__(self):
+        return '(Triangle corners=[{}])'.format(
+            ', '.join('{}'.format(self.vertices())))
+
+    def vertices(self):
+        return self._vertices
+
+    def width(self):
+        vs = self.vertices()
+        return Arrow(src=vs[0], dst=vs[2]).length()
+
+    def height(self):
+        es = self.edges()
+        a = es[0].length()
+        b = es[2].length()
+        c = es[1].length()
+        cos_gammar = (a * a + b * b - c * c) / (2 * a * b)
+        cos_gammar_sqr = cos_gammar * cos_gammar
+        sin_gammar = math.sqrt(1 - cos_gammar_sqr)
+        return a * sin_gammar
+
+class Polygon(WithVertices):
+    def __init__(self, **kws):
+        vertices = kws['vertices']
+        vertices = list(vertices)
+        for x in vertices:
+            assert type(x) == Point, type(x)
+        self._vertices = vertices
+
+    def __repr__(self):
+        return '(Polygon corners=[{}])'.format(
+            ', '.join('{}'.format(self.vertices())))

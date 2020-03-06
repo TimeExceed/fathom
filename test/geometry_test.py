@@ -1,5 +1,5 @@
 import testa
-from math import sqrt
+from math import sqrt, fabs
 from geometry import *
 from itertools import *
 
@@ -138,6 +138,115 @@ def rectangle_ctor_vertices(c, w, h):
         c + Point(-w/2, -h/2),
     ]
     return Rectangle(vertices=vertices)
+
+@testa.is_(expect=Point(2, 3))
+def rectangle_intersect_north():
+    r = Rectangle(center=Point(2, 2), width=2, height=2)
+    return r.intersect_from_center(Point(2, 4))
+
+@testa.is_(expect=Point(3, 2))
+def rectangle_intersect_east():
+    r = Rectangle(center=Point(2, 2), width=2, height=2)
+    return r.intersect_from_center(Point(4, 2))
+
+@testa.is_(expect=Point(2, 1))
+def rectangle_intersect_south():
+    r = Rectangle(center=Point(2, 2), width=2, height=2)
+    return r.intersect_from_center(Point(2, 0))
+
+@testa.is_(expect=Point(1, 2))
+def rectangle_intersect_west():
+    r = Rectangle(center=Point(2, 2), width=2, height=2)
+    return r.intersect_from_center(Point(0, 2))
+
+@testa.is_(expect=Point(3, 3))
+def rectangle_intersect_northeast():
+    r = Rectangle(center=Point(2, 2), width=2, height=2)
+    return r.intersect_from_center(Point(4, 4))
+
+@testa.is_(expect=Point(3, 1))
+def rectangle_intersect_southeast():
+    r = Rectangle(center=Point(2, 2), width=2, height=2)
+    return r.intersect_from_center(Point(4, 0))
+
+@testa.is_(expect=Point(1, 1))
+def rectangle_intersect_southwest():
+    r = Rectangle(center=Point(2, 2), width=2, height=2)
+    return r.intersect_from_center(Point(0, 0))
+
+@testa.is_(expect=Point(1, 3))
+def rectangle_intersect_northwest():
+    r = Rectangle(center=Point(2, 2), width=2, height=2)
+    return r.intersect_from_center(Point(0, 4))
+
+@testa.is_(
+    expect=[
+        origin,
+        Point(1, 3),
+        Point(2, 0),
+    ]
+)
+def triangle_ctor_cwh():
+    return Triangle(center=Point(1, 1), width=2, height=3).vertices()
+
+@testa.is_(expect=(Point(1, 1), 2, 3))
+def triangle_ctor_vertices():
+    vs = [
+        origin,
+        Point(1, 3),
+        Point(2, 0),
+    ]
+    t = Triangle(vertices=vs)
+    return (t.center(), t.width(), t.height())
+
+@testa.is_(
+    expect=[
+        Arrow(src=origin, dst=Point(1, 3)),
+        Arrow(src=Point(1, 3), dst=Point(2, 0)),
+        Arrow(src=Point(2, 0), dst=origin),
+    ]
+)
+def triangle_edges():
+    vs = [
+        origin,
+        Point(1, 3),
+        Point(2, 0),
+    ]
+    t = Triangle(vertices=vs)
+    return t.edges()
+
+def triangle_height_tb(case_f):
+    ts = [Point(x, 1) for x in range(-1, 4)]
+    l = origin
+    r = Point(2, 0)
+    for t in ts:
+        res = case_f(l, t, r)
+        if res is not None:
+            return res
+
+@testa.verify(
+    trial=lambda l, t, r: Triangle(vertices=[l, t, r]).height(),
+    testbench=triangle_height_tb,
+)
+def triangle_height_verifier(res, l, t, r):
+    if fabs(res - 1) > 0.005:
+        return 'expect 1.00 actual {:.2f} by applying ({}, {}, {})'.format(
+            res, l, t, r)
+
+@testa.is_(expect=Point(2, 1))
+def triangle_intersect_south():
+    t = Triangle(vertices=[Point(1, 1), Point(2, 4), Point(3, 1)])
+    return t.intersect_from_center(Point(2, 0))
+
+@testa.is_(expect=Point(2.67, 2))
+def triangle_intersect_east():
+    t = Triangle(vertices=[Point(1, 1), Point(2, 4), Point(3, 1)])
+    return t.intersect_from_center(Point(3, 2))
+
+@testa.is_(expect=Point(1.33, 2))
+def triangle_intersect_west():
+    t = Triangle(vertices=[Point(1, 1), Point(2, 4), Point(3, 1)])
+    return t.intersect_from_center(Point(1, 2))
 
 if __name__ == '__main__':
     testa.main()
