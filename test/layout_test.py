@@ -1,6 +1,6 @@
 import testa
-from geometry import *
-from layout import *
+from fathom.layout import *
+from fathom import Point, origin
 from itertools import *
 
 @testa.is_(

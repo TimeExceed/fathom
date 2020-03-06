@@ -1,6 +1,6 @@
 import testa
 from math import sqrt, fabs
-from geometry import *
+from fathom.geometry import *
 from itertools import *
 
 def point_algebra_tb(case_f):

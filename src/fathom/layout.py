@@ -1,4 +1,4 @@
-from geometry import *
+from .geometry import *
 
 def matrix(**kws):
     h_sep = float(kws['h_sep'])
