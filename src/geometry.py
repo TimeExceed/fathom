@@ -24,8 +24,18 @@ class Point:
     def __add__(self, other):
         return Point(self.x + other.x, self.y + other.y)
 
+    def __iadd__(self, other):
+        self.x += other.x
+        self.y += other.y
+        return self
+
     def __sub__(self, other):
         return Point(self.x - other.x, self.y - other.y)
+
+    def __isub__(self, other):
+        self.x -= other.x
+        self.y -= other.y
+        return self
 
 origin = Point(0, 0)
 
