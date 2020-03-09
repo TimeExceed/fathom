@@ -59,16 +59,23 @@ class _Line:
         vs = tuple(_Point(x) for x in vs)
         insts.append(r'\draw {} -- {};'.format(*vs))
 
-def get_pen_color(kws):
+def _get_pen_color(kws):
     pen_color = kws.get('pen_color')
     if pen_color is not None:
         return pen_color
     return BLACK
 
+def _get_brush_color(kws):
+    brush_color = kws.get('brush_color')
+    if brush_color is not None:
+        return brush_color
+    return INVISIBLE
+
 class _Circle:
     def __init__(self, **kws):
         self._geo = geo.Circle(**kws)
-        self._pen_color = get_pen_color(kws)
+        self._pen_color = _get_pen_color(kws)
+        self._brush_color = _get_brush_color(kws)
 
     def instructions(self, insts):
         center = _Point(self._geo.center())
@@ -83,6 +90,20 @@ class _Circle:
             else:
                 draw_pat = r'\draw[{opts}] {center} circle [radius={radius}];'
             insts.append(draw_pat.format(
+                opts=(','.join(opts)),
+                center=center,
+                radius=format_float(radius),
+            ))
+
+        if self._brush_color is not INVISIBLE:
+            opts = []
+            opts.append('color={}'.format(self._brush_color))
+
+            if len(opts) == 0:
+                fill_pat = r'\fill {center} circle [radius={radius}];'
+            else:
+                fill_pat = r'\fill[{opts}] {center} circle [radius={radius}];'
+            insts.append(fill_pat.format(
                 opts=(','.join(opts)),
                 center=center,
                 radius=format_float(radius),

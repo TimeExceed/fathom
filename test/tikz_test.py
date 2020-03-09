@@ -124,6 +124,26 @@ def circle_mixed_color():
         pen_color=tikz.RED.scale(50).mix(tikz.GREEN))
     return canvas.draw()
 
+@testa.is_(expect=r'''
+\documentclass[UTF8]{ctexart}
+\usepackage[a0paper]{geometry}
+\usepackage{tikz}
+\pagestyle{empty}
+
+\begin{document}
+\begin{tikzpicture}
+\fill[color=red] (1.00cm,1.00cm) circle [radius=1.00cm];
+\end{tikzpicture}
+\end{document}
+''')
+def fill_circle():
+    canvas = tikz.Canvas()
+    canvas.new_circle(
+        center=Point(1, 1),
+        radius=1,
+        pen_color=tikz.INVISIBLE,
+        brush_color=tikz.RED)
+    return canvas.draw()
 
 if __name__ == '__main__':
     testa.main()
