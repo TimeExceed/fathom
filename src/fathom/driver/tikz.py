@@ -30,7 +30,26 @@ class Canvas:
     '\n'.join(insts))
 
     def new_line(self, **kws):
-        s = _Line(**kws)
+        kws['arrow_position'] = NONE
+        s = _Arrow(**kws)
+        self._shapes.append(s)
+        return s
+
+    def new_arrow(self, **kws):
+        kws['arrow_position'] = TAIL
+        s = _Arrow(**kws)
+        self._shapes.append(s)
+        return s
+
+    def new_dblarrow(self, **kws):
+        kws['arrow_position'] = BOTH
+        s = _Arrow(**kws)
+        self._shapes.append(s)
+        return s
+
+    def new_backward_arrow(self, **kws):
+        kws['arrow_position'] = HEAD
+        s = _Arrow(**kws)
         self._shapes.append(s)
         return s
 
@@ -50,14 +69,23 @@ class _Point:
         return '({},{})'.format(
             format_float(self._geo.x), format_float(self._geo.y))
 
-class _Line:
+class _Arrow:
     def __init__(self, **kws):
         self._geo = geo.Arrow(**kws)
+        self._pen_color = _get_pen_color(kws)
+        self._brush_color = _get_brush_color(kws)
+        self._line_style = _get_line_style(kws)
+        self._arrow_position = kws['arrow_position']
 
     def instructions(self, insts):
-        vs = self._geo.vertices()
-        vs = tuple(_Point(x) for x in vs)
-        insts.append(r'\draw {} -- {};'.format(*vs))
+        draw_pat = '{cmd} {src} -- {dst};'
+        draw = _draw_cmd(self)
+        if draw is not None:
+            insts.append(draw_pat.format(
+                cmd=draw,
+                src=_Point(self._geo.src),
+                dst=_Point(self._geo.dst),
+            ))
 
 def _get_pen_color(kws):
     pen_color = kws.get('pen_color')
@@ -77,6 +105,35 @@ def _get_line_style(kws):
         return line_style
     return SOLID
 
+def _draw_cmd(shape):
+    if shape._pen_color is INVISIBLE:
+        return None
+
+    opts = []
+
+    if getattr(shape, '_arrow_position', None) is not None and shape._arrow_position is not NONE:
+        opts.append('{}'.format(shape._arrow_position))
+
+    if shape._pen_color is not BLACK:
+        opts.append('color={}'.format(shape._pen_color))
+
+    if shape._line_style is not SOLID:
+        opts.append('{}'.format(shape._line_style))
+
+    if len(opts) == 0:
+        return r'\draw'
+    else:
+        return r'\draw[{opts}]'.format(opts=','.join(opts))
+
+def _fill_cmd(shape):
+    if shape._brush_color is INVISIBLE:
+        return None
+
+    if shape._brush_color is BLACK:
+        return r'\fill'
+    else:
+        return r'\fill[color={}]'.format(shape._brush_color)
+
 class _Circle:
     def __init__(self, **kws):
         self._geo = geo.Circle(**kws)
@@ -88,35 +145,19 @@ class _Circle:
         center = _Point(self._geo.center())
         radius = self._geo.radius
 
-        if self._pen_color is not INVISIBLE:
-            opts = []
-
-            if self._pen_color is not BLACK:
-                opts.append('color={}'.format(self._pen_color))
-
-            if self._line_style is not SOLID:
-                opts.append('{}'.format(self._line_style))
-
-            if len(opts) == 0:
-                draw_pat = r'\draw {center} circle [radius={radius}];'
-            else:
-                draw_pat = r'\draw[{opts}] {center} circle [radius={radius}];'
+        draw_pat = '{cmd} {center} circle [radius={radius}];'
+        draw = _draw_cmd(self)
+        if draw is not None:
             insts.append(draw_pat.format(
-                opts=(','.join(opts)),
+                cmd=draw,
                 center=center,
                 radius=format_float(radius),
             ))
 
-        if self._brush_color is not INVISIBLE:
-            opts = []
-            opts.append('color={}'.format(self._brush_color))
-
-            if len(opts) == 0:
-                fill_pat = r'\fill {center} circle [radius={radius}];'
-            else:
-                fill_pat = r'\fill[{opts}] {center} circle [radius={radius}];'
-            insts.append(fill_pat.format(
-                opts=(','.join(opts)),
+        fill = _fill_cmd(self)
+        if fill is not None:
+            insts.append(draw_pat.format(
+                cmd=fill,
                 center=center,
                 radius=format_float(radius),
             ))
@@ -199,3 +240,24 @@ class _LineStyle:
 DASHED = _LineStyle('dashed')
 DOTTED = _LineStyle('dotted')
 SOLID = _LineStyle('solid')
+
+class _ArrowPos: pass
+
+class _None(_ArrowPos): pass
+
+class _Tail(_ArrowPos):
+    def __repr__(self):
+        return '->'
+
+class _Head(_ArrowPos):
+    def __repr__(self):
+        return '<-'
+
+class _Both(_ArrowPos):
+    def __repr__(self):
+        return '<->'
+
+NONE = _None()
+HEAD = _Head()
+TAIL = _Tail()
+BOTH = _Both()

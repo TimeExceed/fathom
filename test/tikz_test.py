@@ -24,6 +24,57 @@ def draw_line():
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
 \pagestyle{empty}
+
+\begin{document}
+\begin{tikzpicture}
+\draw[->] (0.00cm,0.00cm) -- (1.00cm,0.00cm);
+\end{tikzpicture}
+\end{document}
+''')
+def draw_arrow():
+    canvas = tikz.Canvas()
+    canvas.new_arrow(src=origin, dst=Point(1, 0))
+    return canvas.draw()
+
+@testa.is_(expect=r'''
+\documentclass[UTF8]{ctexart}
+\usepackage[a0paper]{geometry}
+\usepackage{tikz}
+\pagestyle{empty}
+
+\begin{document}
+\begin{tikzpicture}
+\draw[<->] (0.00cm,0.00cm) -- (1.00cm,0.00cm);
+\end{tikzpicture}
+\end{document}
+''')
+def draw_dblarrow():
+    canvas = tikz.Canvas()
+    canvas.new_dblarrow(src=origin, dst=Point(1, 0))
+    return canvas.draw()
+
+@testa.is_(expect=r'''
+\documentclass[UTF8]{ctexart}
+\usepackage[a0paper]{geometry}
+\usepackage{tikz}
+\pagestyle{empty}
+
+\begin{document}
+\begin{tikzpicture}
+\draw[<-] (0.00cm,0.00cm) -- (1.00cm,0.00cm);
+\end{tikzpicture}
+\end{document}
+''')
+def draw_backward_arrow():
+    canvas = tikz.Canvas()
+    canvas.new_backward_arrow(src=origin, dst=Point(1, 0))
+    return canvas.draw()
+
+@testa.is_(expect=r'''
+\documentclass[UTF8]{ctexart}
+\usepackage[a0paper]{geometry}
+\usepackage{tikz}
+\pagestyle{empty}
 xxx
 yyy
 \begin{document}
