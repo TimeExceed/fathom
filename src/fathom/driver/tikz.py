@@ -71,11 +71,18 @@ def _get_brush_color(kws):
         return brush_color
     return INVISIBLE
 
+def _get_line_style(kws):
+    line_style = kws.get('line_style')
+    if line_style is not None:
+        return line_style
+    return SOLID
+
 class _Circle:
     def __init__(self, **kws):
         self._geo = geo.Circle(**kws)
         self._pen_color = _get_pen_color(kws)
         self._brush_color = _get_brush_color(kws)
+        self._line_style = _get_line_style(kws)
 
     def instructions(self, insts):
         center = _Point(self._geo.center())
@@ -83,7 +90,12 @@ class _Circle:
 
         if self._pen_color is not INVISIBLE:
             opts = []
-            opts.append('color={}'.format(self._pen_color))
+
+            if self._pen_color is not BLACK:
+                opts.append('color={}'.format(self._pen_color))
+
+            if self._line_style is not SOLID:
+                opts.append('{}'.format(self._line_style))
 
             if len(opts) == 0:
                 draw_pat = r'\draw {center} circle [radius={radius}];'
@@ -115,7 +127,6 @@ class _InvisibleColor:
 
     def __repr__(self):
         return 'invisible'
-
 
 INVISIBLE = _InvisibleColor()
 
@@ -177,3 +188,14 @@ class _MixedColor:
         mixes = self._mixes[:]
         mixes.append(other)
         return _MixedColor(mixes)
+
+class _LineStyle:
+    def __init__(self, name):
+        self._name = name
+
+    def __repr__(self):
+        return self._name
+
+DASHED = _LineStyle('dashed')
+DOTTED = _LineStyle('dotted')
+SOLID = _LineStyle('solid')

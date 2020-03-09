@@ -44,7 +44,7 @@ def preamble():
 
 \begin{document}
 \begin{tikzpicture}
-\draw[color=black] (1.00cm,1.00cm) circle [radius=1.00cm];
+\draw (1.00cm,1.00cm) circle [radius=1.00cm];
 \end{tikzpicture}
 \end{document}
 ''')
@@ -143,6 +143,46 @@ def fill_circle():
         radius=1,
         pen_color=tikz.INVISIBLE,
         brush_color=tikz.RED)
+    return canvas.draw()
+
+@testa.is_(expect=r'''
+\documentclass[UTF8]{ctexart}
+\usepackage[a0paper]{geometry}
+\usepackage{tikz}
+\pagestyle{empty}
+
+\begin{document}
+\begin{tikzpicture}
+\draw[dashed] (1.00cm,1.00cm) circle [radius=1.00cm];
+\end{tikzpicture}
+\end{document}
+''')
+def draw_dashed_circle():
+    canvas = tikz.Canvas()
+    canvas.new_circle(
+        center=Point(1, 1),
+        radius=1,
+        line_style=tikz.DASHED)
+    return canvas.draw()
+
+@testa.is_(expect=r'''
+\documentclass[UTF8]{ctexart}
+\usepackage[a0paper]{geometry}
+\usepackage{tikz}
+\pagestyle{empty}
+
+\begin{document}
+\begin{tikzpicture}
+\draw[dotted] (1.00cm,1.00cm) circle [radius=1.00cm];
+\end{tikzpicture}
+\end{document}
+''')
+def draw_dotted_circle():
+    canvas = tikz.Canvas()
+    canvas.new_circle(
+        center=Point(1, 1),
+        radius=1,
+        line_style=tikz.DOTTED)
     return canvas.draw()
 
 if __name__ == '__main__':
