@@ -1,17 +1,13 @@
-import fathom.tikz.colors as colors
-import fathom.tikz.line_styles as line_styles
-import fathom.geometry as geo
-from fathom.geometry import Point, origin, centroid
+from fathom.geometry import Point
+from . import colors
+from . import line_styles
 
 
-class ShapePoint:
-    def __init__(self, pt):
-        self._geo = pt
-
-    def __repr__(self):
-        return '({},{})'.format(
-            format_float(self._geo.x),
-            format_float(self._geo.y))
+def format_point(pt):
+    assert isinstance(pt, Point), type(pt)
+    return '({},{})'.format(
+        format_float(pt.x),
+        format_float(pt.y))
 
 
 def format_float(fp):

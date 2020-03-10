@@ -1,5 +1,5 @@
 from .utils import *
-
+import fathom.geometry as geo
 
 class Circle:
     def __init__(self, **kws):
@@ -12,8 +12,8 @@ class Circle:
         return self._geo
 
     def instructions(self, insts):
-        center = ShapePoint(self._geo.center())
-        radius = self._geo.radius
+        center = format_point(self._geo.center())
+        radius = format_float(self._geo.radius)
 
         draw_pat = '{cmd} {center} circle [radius={radius}];'
         draw = draw_cmd(self)
@@ -21,7 +21,7 @@ class Circle:
             insts.append(draw_pat.format(
                 cmd=draw,
                 center=center,
-                radius=format_float(radius),
+                radius=radius,
             ))
 
         fill = fill_cmd(self)
@@ -29,5 +29,5 @@ class Circle:
             insts.append(draw_pat.format(
                 cmd=fill,
                 center=center,
-                radius=format_float(radius),
+                radius=radius,
             ))

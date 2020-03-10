@@ -1,5 +1,5 @@
 import fathom.geometry as geo
-from fathom.geometry import Point, origin, centroid
+from fathom.geometry import Point
 from .utils import *
 
 class Arrow:
@@ -23,8 +23,8 @@ class Arrow:
         if draw is not None:
             insts.append(draw_pat.format(
                 cmd=draw,
-                src=ShapePoint(self._geo.src),
-                dst=ShapePoint(self._geo.dst),
+                src=format_point(self._geo.src),
+                dst=format_point(self._geo.dst),
             ))
 
     def get_skeleton(self):
