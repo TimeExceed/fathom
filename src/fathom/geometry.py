@@ -1,17 +1,18 @@
+from __future__ import annotations
 import math
 from itertools import cycle
+from typing import *
+from numbers import *
 
 class Point:
-    def __init__(self, x, y):
+    def __init__(self, x: Real, y: Real) -> None:
         self.x = float(x)
         self.y = float(y)
 
     def __repr__(self):
         return '({:.2f},{:.2f})'.format(self.x, self.y)
 
-    def __eq__(self, other):
-        if type(self) != type(other):
-            return False
+    def __eq__(self, other: Point) -> bool:
         if math.fabs(self.x - other.x) >= 0.005:
             return False
         if math.fabs(self.y - other.y) >= 0.005:
@@ -21,89 +22,97 @@ class Point:
     def center(self):
         return self
 
-    def __add__(self, other):
+    def __add__(self, other: Point) -> Point:
         return Point(self.x + other.x, self.y + other.y)
 
-    def __iadd__(self, other):
+    def __iadd__(self, other: Point) -> Point:
         self.x += other.x
         self.y += other.y
         return self
 
-    def __sub__(self, other):
+    def __sub__(self, other: Point) -> Point:
         return Point(self.x - other.x, self.y - other.y)
 
-    def __isub__(self, other):
+    def __isub__(self, other: Point) -> Point:
         self.x -= other.x
         self.y -= other.y
         return self
 
-origin = Point(0, 0)
+ORIGIN = Point(0, 0)
 
-def centroid(points):
+def centroid(points: List[Point]) -> Point:
     assert len(points) > 0
     x = sum(p.x for p in points)
     y = sum(p.y for p in points)
     return Point(x/len(points), y/len(points))
 
+
 class WithVertices:
-    def vertices(self):
+    def vertices(self) -> List[Point]:
         raise NotImplementedError
 
-    def center(self):
+    def center(self) -> Point:
         return centroid(self.vertices())
 
-    def __eq__(self, other):
-        if type(self) != type(other):
+    def __eq__(self: VertexedT, other: VertexedT) -> bool:
+        if type(self) != type(other):  # pylint: disable=unidiomatic-typecheck
             return False
         if self.vertices() != other.vertices():
             return False
         return True
 
-    def edges(self):
+    def edges(self) -> List[Arrow]:
+        # pylint: disable=invalid-name
         vs = self.vertices()
         nvs = cycle(vs)
         next(nvs)
         return [Arrow(src=p0, dst=p1) for p0, p1 in zip(vs, nvs)]
 
-    def intersect_from_center(self, target):
-        assert type(target) == Point, type(target)
+    def intersect_from_center(self, target: Point) -> Optional[Point]:
+        assert isinstance(target, Point), type(target)
         center_line = Arrow(src=self.center(), dst=target)
         for e in self.edges():
             res = center_line.intersect_line(e)
             if res is not None:
                 return res
+        return None
+
+
+VertexedT = TypeVar('VertexedT', bound=WithVertices)
+
 
 class Arrow(WithVertices):
     def __init__(self, **kws):
         src = kws['src']
-        assert type(src) == Point, type(src)
+        assert isinstance(src, Point), type(src)
         dst = kws['dst']
-        assert type(dst) == Point, type(dst)
+        assert isinstance(dst, Point), type(dst)
         self.src = src
         self.dst = dst
 
     def __repr__(self):
         return '({} to {})'.format(self.src, self.dst)
 
-    def length(self):
+    def length(self) -> float:
         p2 = self.src - self.dst
         return math.sqrt(p2.x * p2.x + p2.y * p2.y)
 
-    def vertices(self):
+    def vertices(self) -> List[Point]:
         return [self.src, self.dst]
 
-    def intersect_line(self, other_arr):
-        norm_target = other_arr.dst - other_arr.src
+    def intersect_line(self, other: Arrow) -> Optional[Point]:
+        norm_target = other.dst - other.src
         norm_self = Arrow(
-            src=self.src - other_arr.src,
-            dst=self.dst - other_arr.src)
-        intersected_pt = norm_self._intersect(norm_target)
+            src=self.src - other.src,
+            dst=self.dst - other.src)
+        intersected_pt = norm_self\
+            .__intersect(norm_target)  # pylint: disable=protected-access
         if intersected_pt is None:
             return None
-        else:
-            return intersected_pt + other_arr.src
+        return intersected_pt + other.src
 
-    def _intersect(self, target_pt):
+    def __intersect(self, target_pt: Point) -> Optional[Point]:
+        # pylint: disable=too-many-locals, protected-access
         x0 = self.src.x
         y0 = self.src.y
         x1 = self.dst.x
@@ -114,8 +123,8 @@ class Arrow(WithVertices):
         yy = y1 - y0
         if xx * y2 == x2 * yy:
             return None
-        elif y1 * xx == x1 * yy:
-            res = origin
+        if y1 * xx == x1 * yy:
+            res = ORIGIN
         else:
             a = (y1 - y0) / (x0 * y1 - x1 * y0)
             b = (x1 - x0) / (x1 * y0 - x0 * y1)
@@ -126,24 +135,22 @@ class Arrow(WithVertices):
                 x = 1 / (b * c + a)
                 y = x * c
                 res = Point(x, y)
-        if Arrow(src=origin, dst=target_pt)._inside(res) and self._inside(res):
+        if Arrow(src=ORIGIN, dst=target_pt).__inside(res) and self.__inside(res):
             return res
-        else:
-            return None
+        return None
 
-    def _inside(self, pt):
+    def __inside(self, pt: Point) -> bool:
         c = self.length()
         a = Arrow(src=pt, dst=self.src).length()
         b = Arrow(src=pt, dst=self.dst).length()
         if a == 0 or b == 0:
             return True
-        else:
-            return (a*a + b*b - c*c) < 0
+        return (a*a + b*b - c*c) < 0
 
 class Circle:
     def __init__(self, **kws):
         center = kws['center']
-        assert type(center) == Point, type(center)
+        assert isinstance(center, Point), type(center)
         radius = kws['radius']
         assert radius > 0, radius
         self._center = center
@@ -152,21 +159,19 @@ class Circle:
     def __repr__(self):
         return '(Circle center={} radius={})'.format(self._center, self.radius)
 
-    def __eq__(self, other):
-        if type(self) != type(other):
-            return False
+    def __eq__(self, other: Circle) -> bool:
         if self._center != other._center:
             return False
         if self.radius != other.radius:
             return False
         return True
 
-    def center(self):
+    def center(self) -> Point:
         return self._center
 
-    def intersect_from_center(self, dst):
+    def intersect_from_center(self, dst: Point) -> Optional[Point]:
         p = dst - self.center()
-        l = Arrow(src=origin, dst=p).length()
+        l = Arrow(src=ORIGIN, dst=p).length()
         if l < self.radius:
             return None
         x = p.x * self.radius / l
@@ -177,7 +182,7 @@ class Rectangle(WithVertices):
     def __init__(self, **kws):
         center = kws.get('center')
         if center is not None:
-            assert type(center) == Point, type(center)
+            assert isinstance(center, Point), type(center)
             width = kws['width']
             assert width > 0, width
             height = kws['height']
@@ -211,14 +216,14 @@ class Rectangle(WithVertices):
             self.height(),
         )
 
-    def vertices(self):
+    def vertices(self) -> List[Point]:
         return self._vertices
 
-    def width(self):
+    def width(self) -> float:
         vertices = self.vertices()
         return Arrow(src=vertices[1], dst=vertices[0]).length()
 
-    def height(self):
+    def height(self) -> float:
         vertices = self.vertices()
         return Arrow(src=vertices[1], dst=vertices[2]).length()
 
@@ -229,7 +234,7 @@ class Triangle(WithVertices):
             self._vertices = vertices
         else:
             center = kws['center']
-            assert type(center) == Point, type(center)
+            assert isinstance(center, Point), type(center)
             width = float(kws['width'])
             assert width > 0, width
             height = float(kws['height'])
@@ -245,14 +250,14 @@ class Triangle(WithVertices):
         return '(Triangle corners=[{}])'.format(
             ', '.join('{}'.format(self.vertices())))
 
-    def vertices(self):
+    def vertices(self) -> List[Point]:
         return self._vertices
 
-    def width(self):
+    def width(self) -> float:
         vs = self.vertices()
         return Arrow(src=vs[0], dst=vs[2]).length()
 
-    def height(self):
+    def height(self) -> float:
         es = self.edges()
         a = es[0].length()
         b = es[2].length()
@@ -267,12 +272,12 @@ class Polygon(WithVertices):
         vertices = kws['vertices']
         vertices = list(vertices)
         for x in vertices:
-            assert type(x) == Point, type(x)
+            assert isinstance(x, Point), type(x)
         self._vertices = vertices
 
     def __repr__(self):
         return '(Polygon corners=[{}])'.format(
             ', '.join('{}'.format(self.vertices())))
 
-    def vertices(self):
+    def vertices(self) -> List[Point]:
         return self._vertices

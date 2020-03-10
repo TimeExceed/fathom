@@ -1,3 +1,5 @@
+# pylint: disable=too-few-public-methods
+
 class _LineStyle:
     def __init__(self, name):
         self._name = name

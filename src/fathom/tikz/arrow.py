@@ -1,13 +1,13 @@
 import fathom.geometry as geo
 from fathom.geometry import Point
-from .utils import *
+from .opts import *
 
 class Arrow:
     def __init__(self, **kws):
         src = kws['src']
         dst = kws['dst']
         real_src = _calc_intersect(src, dst)
-        real_dst = _calc_intersect(dst, src)
+        real_dst = _calc_intersect(dst, src)  # pylint: disable=arguments-out-of-order
         self._geo = geo.Arrow(src=real_src, dst=real_dst)
         self._pen_color = get_pen_color(kws)
         self._brush_color = get_brush_color(kws)
@@ -34,32 +34,31 @@ class Arrow:
 def _calc_intersect(src, dst):
     if isinstance(src, Point):
         return src
-    else:
-        src = src.get_skeleton()
-        if isinstance(dst, Point):
-            return src.intersect_from_center(dst)
-        else:
-            return src.intersect_from_center(dst.get_skeleton().center())
+    src = src.get_skeleton()
+    if isinstance(dst, Point):
+        return src.intersect_from_center(dst)
+    return src.intersect_from_center(dst.get_skeleton().center())
 
-class _ArrowPos:
+
+class _ArrowPos:  # pylint: disable=too-few-public-methods
     pass
 
 
-class _None(_ArrowPos):
+class _None(_ArrowPos):  # pylint: disable=too-few-public-methods
     pass
 
 
-class _Tail(_ArrowPos):
+class _Tail(_ArrowPos):  # pylint: disable=too-few-public-methods
     def __repr__(self):
         return '->'
 
 
-class _Head(_ArrowPos):
+class _Head(_ArrowPos):  # pylint: disable=too-few-public-methods
     def __repr__(self):
         return '<-'
 
 
-class _Both(_ArrowPos):
+class _Both(_ArrowPos):  # pylint: disable=too-few-public-methods
     def __repr__(self):
         return '<->'
 

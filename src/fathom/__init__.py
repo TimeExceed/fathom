@@ -1,3 +1,3 @@
-__all__ = ['geometry', 'layout', 'driver', 'Point', 'centroid', 'origin']
+__all__ = ['geometry', 'layout', 'tikz', 'Point', 'centroid', 'ORIGIN']
 
-from .geometry import Point, centroid, origin
+from .geometry import Point, centroid, ORIGIN

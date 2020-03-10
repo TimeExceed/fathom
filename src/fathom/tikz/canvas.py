@@ -9,6 +9,7 @@ from . import polygon
 
 def _add_shape(f):
     def go(*args, **kws):
+        # pylint: disable=protected-access
         s = f(*args, **kws)
         args[0]._shapes.append(s)
         return s
@@ -39,9 +40,9 @@ class Canvas:
 {}
 \end{{tikzpicture}}
 \end{{document}}
-'''.format(
-            '\n'.join(self._preamble),
-            '\n'.join(insts))
+'''.format('\n'.join(self._preamble), '\n'.join(insts))
+
+    # pylint: disable=no-self-use
 
     @_add_shape
     def new_line(self, **kws):
@@ -86,4 +87,3 @@ class Canvas:
     @_add_shape
     def new_polygon(self, **kws):
         return polygon.Polygon(**kws)
-

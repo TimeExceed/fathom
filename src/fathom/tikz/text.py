@@ -1,6 +1,6 @@
-import fathom.geometry as geo
 from fathom.geometry import Point
-from .utils import *
+from .utils import format_point
+from .opts import *
 from . import locations
 
 class Text:

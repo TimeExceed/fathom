@@ -1,7 +1,5 @@
-import fathom.geometry as geo
-from fathom.geometry import Point
-from .utils import *
 from .circle import Circle
+from .opts import *
 from . import colors
 
 class Bullet:
