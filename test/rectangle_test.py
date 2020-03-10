@@ -3,6 +3,7 @@ from fathom import Point, origin
 import fathom.tikz as tikz
 import fathom.tikz.colors as colors
 import fathom.tikz.line_styles as line_styles
+import fathom.tikz.corner_styles as corner_styles
 
 @testa.is_(expect=r'''
 \documentclass[UTF8]{ctexart}
@@ -93,8 +94,8 @@ def rectangle_line_style():
 
 \begin{document}
 \begin{tikzpicture}
-\fill[rounded_corners=0.15cm,color=red] (0.50cm,2.00cm)--(1.50cm,2.00cm)--(1.50cm,0.00cm)--(0.50cm,0.00cm)--cycle;
-\draw[rounded_corners=0.15cm] (0.50cm,2.00cm)--(1.50cm,2.00cm)--(1.50cm,0.00cm)--(0.50cm,0.00cm)--cycle;
+\fill[rounded corners=0.15cm,color=red] (0.50cm,2.00cm)--(1.50cm,2.00cm)--(1.50cm,0.00cm)--(0.50cm,0.00cm)--cycle;
+\draw[rounded corners=0.15cm] (0.50cm,2.00cm)--(1.50cm,2.00cm)--(1.50cm,0.00cm)--(0.50cm,0.00cm)--cycle;
 \end{tikzpicture}
 \end{document}
 ''')
@@ -106,7 +107,7 @@ def rectangle_rounded_corners():
         height=2,
         pen_color=colors.BLACK,
         brush_color=colors.RED,
-        rounded_corner='default')
+        corner_style=corner_styles.DEFAULT_ROUNDED)
     return canvas.draw()
 
 

@@ -1,6 +1,7 @@
 from fathom.geometry import Point
 from . import colors
 from . import line_styles
+from . import corner_styles
 
 
 def format_point(pt):
@@ -25,14 +26,8 @@ def get_brush_color(kws):
 def get_line_style(kws):
     return kws.get('line_style', line_styles.SOLID)
 
-def get_rounded_corner(kws):
-    rc = kws.get('rounded_corner', None)
-    if rc is None:
-        return None
-    if rc == 'default':
-        return 0.15
-    assert isinstance(rc, number), type(rc)
-    return rc
+def get_corner_style(kws):
+    return kws.get('corner_style', corner_styles.SHARP)
 
 def draw_cmd(shape, additional_opts=None):
     if shape._pen_color is colors.INVISIBLE:

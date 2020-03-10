@@ -1,5 +1,6 @@
 from .utils import *
 from .polygon import Polygon
+from . import corner_styles
 import fathom.geometry as geo
 
 
@@ -9,7 +10,7 @@ class Rectangle(Polygon):
         self._pen_color = get_pen_color(kws)
         self._brush_color = get_brush_color(kws)
         self._line_style = get_line_style(kws)
-        self._rounded_corner = get_rounded_corner(kws)
+        self._corner_style = get_corner_style(kws)
 
     def get_skeleton(self):
         return self._geo
@@ -17,9 +18,8 @@ class Rectangle(Polygon):
     def instructions(self, insts):
         more_opts = []
 
-        if self._rounded_corner is not None:
-            rc = 'rounded_corners={}'.format(
-                format_float(self._rounded_corner))
+        if self._corner_style is not corner_styles.SHARP:
+            rc = '{}'.format(self._corner_style)
             more_opts.append(rc)
 
         vertices = [format_point(x) for x in self._geo.vertices()]
