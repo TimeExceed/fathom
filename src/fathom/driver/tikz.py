@@ -69,9 +69,26 @@ class _Point:
         return '({},{})'.format(
             format_float(self._geo.x), format_float(self._geo.y))
 
+    def get_skeleton(self):
+        return self._geo
+
+def calc_intersect(src, dst):
+    if isinstance(src, Point):
+        return src
+    else:
+        src = src.get_skeleton()
+        if isinstance(dst, Point):
+            return src.intersect_from_center(dst)
+        else:
+            return src.intersect_from_center(dst.get_skeleton().center())
+
 class _Arrow:
     def __init__(self, **kws):
-        self._geo = geo.Arrow(**kws)
+        src = kws['src']
+        dst = kws['dst']
+        real_src = calc_intersect(src, dst)
+        real_dst = calc_intersect(dst, src)
+        self._geo = geo.Arrow(src=real_src, dst=real_dst)
         self._pen_color = _get_pen_color(kws)
         self._brush_color = _get_brush_color(kws)
         self._line_style = _get_line_style(kws)
@@ -86,6 +103,9 @@ class _Arrow:
                 src=_Point(self._geo.src),
                 dst=_Point(self._geo.dst),
             ))
+
+    def get_skeleton(self):
+        return self._geo
 
 def _get_pen_color(kws):
     pen_color = kws.get('pen_color')
@@ -140,6 +160,9 @@ class _Circle:
         self._pen_color = _get_pen_color(kws)
         self._brush_color = _get_brush_color(kws)
         self._line_style = _get_line_style(kws)
+
+    def get_skeleton(self):
+        return self._geo
 
     def instructions(self, insts):
         center = _Point(self._geo.center())
