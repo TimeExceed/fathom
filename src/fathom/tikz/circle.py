@@ -16,18 +16,19 @@ class Circle:
         radius = format_float(self._geo.radius)
 
         draw_pat = '{cmd} {center} circle [radius={radius}];'
-        draw = draw_cmd(self)
-        if draw is not None:
-            insts.append(draw_pat.format(
-                cmd=draw,
-                center=center,
-                radius=radius,
-            ))
 
         fill = fill_cmd(self)
         if fill is not None:
             insts.append(draw_pat.format(
                 cmd=fill,
+                center=center,
+                radius=radius,
+            ))
+
+        draw = draw_cmd(self)
+        if draw is not None:
+            insts.append(draw_pat.format(
+                cmd=draw,
                 center=center,
                 radius=radius,
             ))

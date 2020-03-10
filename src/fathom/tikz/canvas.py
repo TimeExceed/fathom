@@ -4,6 +4,7 @@ from . import arrow
 from . import circle
 from . import bullet
 from . import text
+from . import rectangle as rect
 
 class Canvas:
     def __init__(self, **kws):
@@ -69,5 +70,10 @@ class Canvas:
 
     def new_text(self, **kws):
         s = text.Text(**kws)
+        self._shapes.append(s)
+        return s
+
+    def new_rectangle(self, **kws):
+        s = rect.Rectangle(**kws)
         self._shapes.append(s)
         return s
