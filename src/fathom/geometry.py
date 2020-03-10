@@ -273,3 +273,6 @@ class Polygon(WithVertices):
     def __repr__(self):
         return '(Polygon corners=[{}])'.format(
             ', '.join('{}'.format(self.vertices())))
+
+    def vertices(self):
+        return self._vertices

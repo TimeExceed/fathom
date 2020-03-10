@@ -30,6 +30,40 @@ def draw_rectangle():
 
 \begin{document}
 \begin{tikzpicture}
+\draw (0.00cm,0.00cm)--(1.00cm,2.00cm)--(2.00cm,0.00cm)--cycle;
+\end{tikzpicture}
+\end{document}
+''')
+def draw_triangle():
+    canvas = tikz.Canvas()
+    canvas.new_triangle(vertices=[origin, Point(1, 2), Point(2, 0)])
+    return canvas.draw()
+
+@testa.is_(expect=r'''
+\documentclass[UTF8]{ctexart}
+\usepackage[a0paper]{geometry}
+\usepackage{tikz}
+\pagestyle{empty}
+
+\begin{document}
+\begin{tikzpicture}
+\draw (0.00cm,0.00cm)--(1.00cm,2.00cm)--(2.00cm,0.00cm)--cycle;
+\end{tikzpicture}
+\end{document}
+''')
+def draw_polygon():
+    canvas = tikz.Canvas()
+    canvas.new_polygon(vertices=[origin, Point(1, 2), Point(2, 0)])
+    return canvas.draw()
+
+@testa.is_(expect=r'''
+\documentclass[UTF8]{ctexart}
+\usepackage[a0paper]{geometry}
+\usepackage{tikz}
+\pagestyle{empty}
+
+\begin{document}
+\begin{tikzpicture}
 \draw[color=red] (0.50cm,2.00cm)--(1.50cm,2.00cm)--(1.50cm,0.00cm)--(0.50cm,0.00cm)--cycle;
 \end{tikzpicture}
 \end{document}

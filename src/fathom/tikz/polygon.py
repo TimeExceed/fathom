@@ -1,3 +1,5 @@
+__all__ = ['Rectangle', 'Triangle', 'Polygon']
+
 from .utils import *
 from . import corner_styles
 import fathom.geometry as geo
@@ -38,9 +40,16 @@ class _PolygonBase:
                 vertices=vertices,
             ))
 
-class Polygon: pass
+class Polygon(_PolygonBase):
+    def __init__(self, **kws):
+        super().__init__(geo.Polygon(**kws), kws)
 
 
 class Rectangle(_PolygonBase):
     def __init__(self, **kws):
         super().__init__(geo.Rectangle(**kws), kws)
+
+
+class Triangle(_PolygonBase):
+    def __init__(self, **kws):
+        super().__init__(geo.Triangle(**kws), kws)
