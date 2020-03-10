@@ -13,7 +13,7 @@ class Circle:
 
     def instructions(self, insts):
         center = format_point(self._geo.center())
-        radius = format_float(self._geo.radius)
+        radius = format_length(self._geo.radius)
 
         draw_pat = '{cmd} {center} circle [radius={radius}];'
 

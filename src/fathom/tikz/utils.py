@@ -7,11 +7,11 @@ from . import corner_styles
 def format_point(pt):
     assert isinstance(pt, Point), type(pt)
     return '({},{})'.format(
-        format_float(pt.x),
-        format_float(pt.y))
+        format_length(pt.x),
+        format_length(pt.y))
 
 
-def format_float(fp):
+def format_length(fp):
     return '{:.2f}cm'.format(fp)
 
 
@@ -26,8 +26,10 @@ def get_brush_color(kws):
 def get_line_style(kws):
     return kws.get('line_style', line_styles.SOLID)
 
+
 def get_corner_style(kws):
     return kws.get('corner_style', corner_styles.SHARP)
+
 
 def draw_cmd(shape, additional_opts=None):
     if shape._pen_color is colors.INVISIBLE:
