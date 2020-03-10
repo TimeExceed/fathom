@@ -1,3 +1,8 @@
+from __future__ import annotations
+from typing import *
+
+# pylint: disable=too-few-public-methods
+
 class _InvisibleColor:
     def __init__(self):
         pass
@@ -19,8 +24,7 @@ class _PredefinedColor:
     def scale(self, ratio):
         return _ScaledColor(self, ratio)
 
-    def mix(self, other):
-        assert type(other) in (_PredefinedColor, _ScaledColor), type(other)
+    def mix(self, other: Union[_PredefinedColor, _ScaledColor]) -> _MixedColor:
         return _MixedColor([self, other])
 
 
@@ -53,8 +57,7 @@ class _ScaledColor:
     def __repr__(self):
         return '{}!{:.0f}'.format(self._base, self._ratio)
 
-    def mix(self, other):
-        assert type(other) in (_PredefinedColor, _ScaledColor), type(other)
+    def mix(self, other: Union[_PredefinedColor, _ScaledColor]) -> _MixedColor:
         return _MixedColor([self, other])
 
 
@@ -65,8 +68,7 @@ class _MixedColor:
     def __repr__(self):
         return '!'.join(['{}'.format(x) for x in self._mixes])
 
-    def mix(self, other):
-        assert type(other) in (_PredefinedColor, _ScaledColor), type(other)
+    def mix(self, other: Union[_PredefinedColor, _ScaledColor]) -> _MixedColor:
         mixes = self._mixes[:]
         mixes.append(other)
         return _MixedColor(mixes)

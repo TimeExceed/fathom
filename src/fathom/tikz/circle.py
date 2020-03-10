@@ -1,5 +1,6 @@
-from .utils import *
 import fathom.geometry as geo
+from .utils import *
+from .opts import *
 
 class Circle:
     def __init__(self, **kws):

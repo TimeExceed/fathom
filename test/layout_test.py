@@ -1,42 +1,42 @@
 import testa
 from fathom.layout import *
-from fathom import Point, origin
+from fathom import Point, ORIGIN
 from itertools import *
 
 @testa.is_(
     expect=[
-        [origin, Point(1, 0), Point(2, 0)],
+        [ORIGIN, Point(1, 0), Point(2, 0)],
         [Point(0, -2), Point(1, -2), Point(2, -2)],
     ]
 )
 def matrix_ctor():
-    return matrix(top_left=origin, h_sep=1, v_sep=2, n_rows=2, n_cols=3)
+    return matrix(top_left=ORIGIN, h_sep=1, v_sep=2, n_rows=2, n_cols=3)
 
 
 @testa.is_(
     expect={
-        'root': origin,
+        'root': ORIGIN,
         'child': Point(0, -1)
     }
 )
 def tree_verticle_line():
     s = ['root', ['child']]
-    return tree(s, root=origin, h_sep=1, v_sep=1)
+    return tree(s, root=ORIGIN, h_sep=1, v_sep=1)
 
 @testa.is_(
     expect={
-        'root': origin,
+        'root': ORIGIN,
         'left': Point(-1, -1),
         'right': Point(1, -1),
     }
 )
 def tree_triangle():
     s = ['root', ['left'], ['right']]
-    return tree(s, root=origin, h_sep=2, v_sep=1)
+    return tree(s, root=ORIGIN, h_sep=2, v_sep=1)
 
 @testa.is_(
     expect={
-        'root': origin,
+        'root': ORIGIN,
         'left': Point(-2, -1),
         'middle': Point(0, -1),
         'right': Point(2, -1),
@@ -46,11 +46,11 @@ def tree_triangle():
 )
 def tree_hierarchical():
     s = ['root', ['left'], ['middle', ['m_left'], ['m_right']], ['right']]
-    return tree(s, root=origin, h_sep=2, v_sep=1)
+    return tree(s, root=ORIGIN, h_sep=2, v_sep=1)
 
 @testa.is_(
     expect={
-        'root': origin,
+        'root': ORIGIN,
         'left': Point(-3, -1),
         'middle': Point(0, -1),
         'right': Point(3, -1),
@@ -69,11 +69,11 @@ def tree_bridge():
         ['middle'],
         ['right', ['r_left'], ['r_middle'], ['r_right']],
     ]
-    return tree(s, root=origin, h_sep=2, v_sep=1)
+    return tree(s, root=ORIGIN, h_sep=2, v_sep=1)
 
 @testa.is_(
     expect={
-        'root': origin,
+        'root': ORIGIN,
         'left': Point(-1.5, -1),
         'right': Point(1.5, -1),
         'r0': Point(-1.5, -2),
@@ -88,11 +88,11 @@ def tree_inbalanced():
         ['left'],
         ['right', ['r0'], ['r1'], ['r2'], ['r3']],
     ]
-    return tree(s, root=origin, h_sep=2, v_sep=1)
+    return tree(s, root=ORIGIN, h_sep=2, v_sep=1)
 
 @testa.is_(
     expect={
-        'root': origin,
+        'root': ORIGIN,
         'left': Point(-1, -1),
         'right': Point(1, -1),
         'r0': Point(1, -2),
@@ -104,7 +104,7 @@ def tree_slope():
         ['left'],
         ['right', ['r0']],
     ]
-    return tree(s, root=origin, h_sep=2, v_sep=1)
+    return tree(s, root=ORIGIN, h_sep=2, v_sep=1)
 
 if __name__ == '__main__':
     testa.main()

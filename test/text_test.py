@@ -1,5 +1,5 @@
 import testa
-from fathom import Point, origin
+from fathom import Point, ORIGIN
 import fathom.tikz as tikz
 import fathom.tikz.colors as colors
 import fathom.tikz.line_styles as line_styles

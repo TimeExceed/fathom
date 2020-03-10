@@ -16,7 +16,7 @@ def point_algebra_trial(p0, p1):
 
 @testa.is_(expect=None)
 def intersect_outside():
-    a = Arrow(src=origin, dst=Point(2, 0))
+    a = Arrow(src=ORIGIN, dst=Point(2, 0))
     b = Arrow(src=Point(-1, -1), dst=Point(-1, 1))
     return a.intersect_line(b)
 
@@ -51,12 +51,12 @@ def intersect_exhaustive_verifier(res, a0, a1):
 
 @testa.is_(expect=Point(1, 1))
 def arrow_center():
-    a = Arrow(src=origin, dst=Point(2, 2))
+    a = Arrow(src=ORIGIN, dst=Point(2, 2))
     return a.center()
 
-@testa.is_(expect=origin)
+@testa.is_(expect=ORIGIN)
 def circle_center():
-    c = Circle(center=origin, radius=1)
+    c = Circle(center=ORIGIN, radius=1)
     return c.center()
 
 @testa.is_(expect=Point(2, 3))
@@ -97,7 +97,7 @@ def circle_intersect_northwest():
 @testa.is_(expect=Point(2, 2) + Point(-1/sqrt(2), -1/sqrt(2)))
 def circle_intersect_southwest():
     c = Circle(center=Point(2, 2), radius=1)
-    return c.intersect_from_center(origin)
+    return c.intersect_from_center(ORIGIN)
 
 @testa.is_(expect=[
     Point(-1, 5),
@@ -181,7 +181,7 @@ def rectangle_intersect_northwest():
 
 @testa.is_(
     expect=[
-        origin,
+        ORIGIN,
         Point(1, 3),
         Point(2, 0),
     ]
@@ -192,7 +192,7 @@ def triangle_ctor_cwh():
 @testa.is_(expect=(Point(1, 1), 2, 3))
 def triangle_ctor_vertices():
     vs = [
-        origin,
+        ORIGIN,
         Point(1, 3),
         Point(2, 0),
     ]
@@ -201,14 +201,14 @@ def triangle_ctor_vertices():
 
 @testa.is_(
     expect=[
-        Arrow(src=origin, dst=Point(1, 3)),
+        Arrow(src=ORIGIN, dst=Point(1, 3)),
         Arrow(src=Point(1, 3), dst=Point(2, 0)),
-        Arrow(src=Point(2, 0), dst=origin),
+        Arrow(src=Point(2, 0), dst=ORIGIN),
     ]
 )
 def triangle_edges():
     vs = [
-        origin,
+        ORIGIN,
         Point(1, 3),
         Point(2, 0),
     ]
@@ -217,7 +217,7 @@ def triangle_edges():
 
 def triangle_height_tb(case_f):
     ts = [Point(x, 1) for x in range(-1, 4)]
-    l = origin
+    l = ORIGIN
     r = Point(2, 0)
     for t in ts:
         res = case_f(l, t, r)

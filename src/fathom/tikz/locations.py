@@ -1,3 +1,5 @@
+# pylint: disable=too-few-public-methods
+
 class _Location:
     def __init__(self, loc):
         self._loc = loc

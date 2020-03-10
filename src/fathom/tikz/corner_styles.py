@@ -1,6 +1,13 @@
 from .utils import format_length
 
-SHARP = object()
+# pylint: disable=too-few-public-methods
+
+class _Sharp:
+    pass
+
+
+SHARP = _Sharp()
+
 
 class Rounded:
     def __init__(self, radius):
@@ -8,5 +15,6 @@ class Rounded:
 
     def __repr__(self):
         return 'rounded corners={}'.format(format_length(self._radius))
+
 
 DEFAULT_ROUNDED = Rounded(0.15)

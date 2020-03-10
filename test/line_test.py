@@ -1,5 +1,5 @@
 import testa
-from fathom import Point, origin
+from fathom import Point, ORIGIN
 import fathom.tikz as tikz
 import fathom.tikz.colors as colors
 import fathom.tikz.line_styles as line_styles
@@ -18,7 +18,7 @@ import fathom.tikz.line_styles as line_styles
 ''')
 def draw_line():
     canvas = tikz.Canvas()
-    canvas.new_line(src=origin, dst=Point(1, 0))
+    canvas.new_line(src=ORIGIN, dst=Point(1, 0))
     return canvas.draw()
 
 @testa.is_(expect=r'''
@@ -35,7 +35,7 @@ def draw_line():
 ''')
 def draw_arrow():
     canvas = tikz.Canvas()
-    canvas.new_arrow(src=origin, dst=Point(1, 0))
+    canvas.new_arrow(src=ORIGIN, dst=Point(1, 0))
     return canvas.draw()
 
 @testa.is_(expect=r'''
@@ -52,7 +52,7 @@ def draw_arrow():
 ''')
 def draw_dblarrow():
     canvas = tikz.Canvas()
-    canvas.new_dblarrow(src=origin, dst=Point(1, 0))
+    canvas.new_dblarrow(src=ORIGIN, dst=Point(1, 0))
     return canvas.draw()
 
 @testa.is_(expect=r'''
@@ -69,7 +69,7 @@ def draw_dblarrow():
 ''')
 def draw_backward_arrow():
     canvas = tikz.Canvas()
-    canvas.new_backward_arrow(src=origin, dst=Point(1, 0))
+    canvas.new_backward_arrow(src=ORIGIN, dst=Point(1, 0))
     return canvas.draw()
 
 @testa.is_(expect=r'''
@@ -86,7 +86,7 @@ def draw_backward_arrow():
 ''')
 def line_from_shape():
     canvas = tikz.Canvas()
-    c0 = canvas.new_circle(center=origin, radius=1, pen_color=colors.INVISIBLE)
+    c0 = canvas.new_circle(center=ORIGIN, radius=1, pen_color=colors.INVISIBLE)
     canvas.new_line(src=c0, dst=Point(3, 0))
     return canvas.draw()
 
@@ -108,7 +108,7 @@ def line_to_shape():
         center=Point(3, 0),
         radius=1,
         pen_color=colors.INVISIBLE)
-    canvas.new_line(src=origin, dst=c1)
+    canvas.new_line(src=ORIGIN, dst=c1)
     return canvas.draw()
 
 @testa.is_(expect=r'''
@@ -126,7 +126,7 @@ def line_to_shape():
 def line_between_shapes():
     canvas = tikz.Canvas()
     c0 = canvas.new_circle(
-        center=origin,
+        center=ORIGIN,
         radius=1,
         pen_color=colors.INVISIBLE)
     c1 = canvas.new_circle(

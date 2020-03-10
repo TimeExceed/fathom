@@ -4,32 +4,32 @@ def matrix(**kws):
     h_sep = float(kws['h_sep'])
     v_sep = float(kws['v_sep'])
     n_rows = kws['n_rows']
-    assert type(n_rows) == int, type(n_rows)
+    assert isinstance(n_rows, int), type(n_rows)
     n_cols = kws['n_cols']
-    assert type(n_cols) == int, type(n_cols)
+    assert isinstance(n_cols, int), type(n_cols)
     top_left = kws['top_left']
-    assert type(top_left) == Point, type(top_left)
+    assert isinstance(top_left, Point), type(top_left)
     return [
         [top_left + Point(h_sep*x, -v_sep*y) for x in range(n_cols)]\
             for y in range(n_rows)
     ]
 
 def tree(skeleton, **kws):
+    # pylint: disable=too-many-locals, too-many-statements
     root_pt = kws['root']
-    assert type(root_pt) == Point, type(root_pt)
+    assert isinstance(root_pt, Point), type(root_pt)
     h_sep = float(kws['h_sep'])
     v_sep = float(kws['v_sep'])
     nodes = {}
 
-    def _shift(skeleton, diff):
+    def _shift(skeleton, diff: Point):
         root = skeleton[0]
-        p = nodes[root]
         nodes[root] += diff
         for x in skeleton[1:]:
             _shift(x, diff)
 
-    def _init_nodes(skeleton, level):
-        assert type(skeleton) == list, skeleton
+    def _init_nodes(skeleton, level: int):
+        assert isinstance(skeleton, list), skeleton
         rt = skeleton[0]
         assert rt not in nodes, 'duplicated key: {}'.format(rt)
         nodes[rt] = Point(0, - v_sep * level)
@@ -40,7 +40,7 @@ def tree(skeleton, **kws):
 
     levelled_max_x = {}
 
-    def _init_levelled_max_x(skeleton, level):
+    def _init_levelled_max_x(skeleton, level: int):
         if level not in levelled_max_x:
             levelled_max_x[level] = -h_sep
         for x in skeleton[1:]:

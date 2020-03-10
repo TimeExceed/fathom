@@ -1,5 +1,5 @@
 import testa
-from fathom import Point, origin
+from fathom import Point, ORIGIN
 import fathom.tikz as tikz
 import fathom.tikz.colors as colors
 import fathom.tikz.line_styles as line_styles
@@ -36,7 +36,7 @@ def draw_rectangle():
 ''')
 def draw_triangle():
     canvas = tikz.Canvas()
-    canvas.new_triangle(vertices=[origin, Point(1, 2), Point(2, 0)])
+    canvas.new_triangle(vertices=[ORIGIN, Point(1, 2), Point(2, 0)])
     return canvas.draw()
 
 @testa.is_(expect=r'''
@@ -53,7 +53,7 @@ def draw_triangle():
 ''')
 def draw_polygon():
     canvas = tikz.Canvas()
-    canvas.new_polygon(vertices=[origin, Point(1, 2), Point(2, 0)])
+    canvas.new_polygon(vertices=[ORIGIN, Point(1, 2), Point(2, 0)])
     return canvas.draw()
 
 @testa.is_(expect=r'''

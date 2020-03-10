@@ -1,5 +1,5 @@
 import testa
-from fathom import Point, origin
+from fathom import Point, ORIGIN
 import fathom.tikz as tikz
 import fathom.tikz.colors as colors
 import fathom.tikz.line_styles as line_styles
@@ -115,7 +115,7 @@ def bullet_outer_line_style():
 ''')
 def intersect_bullet():
     canvas = tikz.Canvas()
-    s = canvas.new_bullet(center=origin)
+    s = canvas.new_bullet(center=ORIGIN)
     canvas.new_line(src=s, dst=Point(1, 0))
     return canvas.draw()
 
