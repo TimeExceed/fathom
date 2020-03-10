@@ -6,6 +6,15 @@ from . import bullet
 from . import text
 from . import polygon
 
+
+def _add_shape(f):
+    def go(*args, **kws):
+        s = f(*args, **kws)
+        args[0]._shapes.append(s)
+        return s
+    return go
+
+
 class Canvas:
     def __init__(self, **kws):
         self._preamble = []
@@ -34,56 +43,47 @@ class Canvas:
             '\n'.join(self._preamble),
             '\n'.join(insts))
 
+    @_add_shape
     def new_line(self, **kws):
         kws['arrow_position'] = arrow.NONE
-        s = arrow.Arrow(**kws)
-        self._shapes.append(s)
-        return s
+        return arrow.Arrow(**kws)
 
+    @_add_shape
     def new_arrow(self, **kws):
         kws['arrow_position'] = arrow.TAIL
-        s = arrow.Arrow(**kws)
-        self._shapes.append(s)
-        return s
+        return arrow.Arrow(**kws)
 
+    @_add_shape
     def new_dblarrow(self, **kws):
         kws['arrow_position'] = arrow.BOTH
-        s = arrow.Arrow(**kws)
-        self._shapes.append(s)
-        return s
+        return arrow.Arrow(**kws)
 
+    @_add_shape
     def new_backward_arrow(self, **kws):
         kws['arrow_position'] = arrow.HEAD
-        s = arrow.Arrow(**kws)
-        self._shapes.append(s)
-        return s
+        return arrow.Arrow(**kws)
 
+    @_add_shape
     def new_circle(self, **kws):
-        s = circle.Circle(**kws)
-        self._shapes.append(s)
-        return s
+        return circle.Circle(**kws)
 
+    @_add_shape
     def new_bullet(self, **kws):
-        s = bullet.Bullet(**kws)
-        self._shapes.append(s)
-        return s
+        return bullet.Bullet(**kws)
 
+    @_add_shape
     def new_text(self, **kws):
-        s = text.Text(**kws)
-        self._shapes.append(s)
-        return s
+        return text.Text(**kws)
 
+    @_add_shape
     def new_rectangle(self, **kws):
-        s = polygon.Rectangle(**kws)
-        self._shapes.append(s)
-        return s
+        return polygon.Rectangle(**kws)
 
+    @_add_shape
     def new_triangle(self, **kws):
-        s = polygon.Triangle(**kws)
-        self._shapes.append(s)
-        return s
+        return polygon.Triangle(**kws)
 
+    @_add_shape
     def new_polygon(self, **kws):
-        s = polygon.Polygon(**kws)
-        self._shapes.append(s)
-        return s
+        return polygon.Polygon(**kws)
+
