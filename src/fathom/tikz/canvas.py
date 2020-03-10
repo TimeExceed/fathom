@@ -3,6 +3,7 @@ __all__ = ['Canvas']
 from . import arrow
 from . import circle
 from . import bullet
+from . import text
 
 class Canvas:
     def __init__(self, **kws):
@@ -63,5 +64,10 @@ class Canvas:
 
     def new_bullet(self, **kws):
         s = bullet.Bullet(**kws)
+        self._shapes.append(s)
+        return s
+
+    def new_text(self, **kws):
+        s = text.Text(**kws)
         self._shapes.append(s)
         return s
