@@ -15,24 +15,15 @@ def format_float(fp):
 
 
 def get_pen_color(kws):
-    pen_color = kws.get('pen_color')
-    if pen_color is not None:
-        return pen_color
-    return colors.BLACK
+    return kws.get('pen_color', colors.BLACK)
 
 
 def get_brush_color(kws):
-    brush_color = kws.get('brush_color')
-    if brush_color is not None:
-        return brush_color
-    return colors.INVISIBLE
+    return kws.get('brush_color', colors.INVISIBLE)
 
 
 def get_line_style(kws):
-    line_style = kws.get('line_style')
-    if line_style is not None:
-        return line_style
-    return line_styles.SOLID
+    return kws.get('line_style', line_styles.SOLID)
 
 
 def draw_cmd(shape, additional_opts=None):
