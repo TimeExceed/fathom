@@ -1,6 +1,8 @@
 import testa
 from fathom import Point, origin
-import fathom.driver.tikz as tikz
+import fathom.tikz as tikz
+import fathom.tikz.colors as colors
+import fathom.tikz.line_styles as line_styles
 
 @testa.is_(expect=r'''
 \documentclass[UTF8]{ctexart}
@@ -84,7 +86,7 @@ def draw_backward_arrow():
 ''')
 def line_from_shape():
     canvas = tikz.Canvas()
-    c0 = canvas.new_circle(center=origin, radius=1, pen_color=tikz.INVISIBLE)
+    c0 = canvas.new_circle(center=origin, radius=1, pen_color=colors.INVISIBLE)
     canvas.new_line(src=c0, dst=Point(3, 0))
     return canvas.draw()
 
@@ -105,7 +107,7 @@ def line_to_shape():
     c1 = canvas.new_circle(
         center=Point(3, 0),
         radius=1,
-        pen_color=tikz.INVISIBLE)
+        pen_color=colors.INVISIBLE)
     canvas.new_line(src=origin, dst=c1)
     return canvas.draw()
 
@@ -126,11 +128,11 @@ def line_between_shapes():
     c0 = canvas.new_circle(
         center=origin,
         radius=1,
-        pen_color=tikz.INVISIBLE)
+        pen_color=colors.INVISIBLE)
     c1 = canvas.new_circle(
         center=Point(3, 0),
         radius=1,
-        pen_color=tikz.INVISIBLE)
+        pen_color=colors.INVISIBLE)
     canvas.new_line(src=c0, dst=c1)
     return canvas.draw()
 
@@ -182,7 +184,7 @@ def draw_circle():
 ''')
 def circle_pen_color():
     canvas = tikz.Canvas()
-    canvas.new_circle(center=Point(1, 1), radius=1, pen_color=tikz.RED)
+    canvas.new_circle(center=Point(1, 1), radius=1, pen_color=colors.RED)
     return canvas.draw()
 
 @testa.is_(expect=r'''
@@ -199,7 +201,10 @@ def circle_pen_color():
 ''')
 def invisible_circle():
     canvas = tikz.Canvas()
-    canvas.new_circle(center=Point(1, 1), radius=1, pen_color=tikz.INVISIBLE)
+    canvas.new_circle(
+        center=Point(1, 1),
+        radius=1,
+        pen_color=colors.INVISIBLE)
     return canvas.draw()
 
 @testa.is_(expect=r'''
@@ -216,7 +221,7 @@ def invisible_circle():
 ''')
 def circle_scaled_color():
     canvas = tikz.Canvas()
-    canvas.new_circle(center=Point(1, 1), radius=1, pen_color=tikz.RED.scale(50))
+    canvas.new_circle(center=Point(1, 1), radius=1, pen_color=colors.RED.scale(50))
     return canvas.draw()
 
 @testa.is_(expect=r'''
@@ -236,7 +241,7 @@ def circle_mixed_color():
     canvas.new_circle(
         center=Point(1, 1),
         radius=1,
-        pen_color=tikz.RED.scale(50).mix(tikz.GREEN))
+        pen_color=colors.RED.scale(50).mix(colors.GREEN))
     return canvas.draw()
 
 @testa.is_(expect=r'''
@@ -256,8 +261,8 @@ def fill_circle():
     canvas.new_circle(
         center=Point(1, 1),
         radius=1,
-        pen_color=tikz.INVISIBLE,
-        brush_color=tikz.RED)
+        pen_color=colors.INVISIBLE,
+        brush_color=colors.RED)
     return canvas.draw()
 
 @testa.is_(expect=r'''
@@ -277,7 +282,7 @@ def draw_dashed_circle():
     canvas.new_circle(
         center=Point(1, 1),
         radius=1,
-        line_style=tikz.DASHED)
+        line_style=line_styles.DASHED)
     return canvas.draw()
 
 @testa.is_(expect=r'''
@@ -297,7 +302,7 @@ def draw_dotted_circle():
     canvas.new_circle(
         center=Point(1, 1),
         radius=1,
-        line_style=tikz.DOTTED)
+        line_style=line_styles.DOTTED)
     return canvas.draw()
 
 if __name__ == '__main__':
