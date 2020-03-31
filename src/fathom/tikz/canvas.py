@@ -20,12 +20,18 @@ class Canvas:
     def __init__(self, **kws):
         self._preamble = []
         self._shapes = []
+        self._leading_insts = []
+
         preamble = kws.get('preamble')
         if preamble is not None:
-            self._preamble = preamble
+            self._preamble.extend(preamble)
+
+        leading_insts = kws.get('leading_instructions')
+        if leading_insts is not None:
+            self._leading_insts.extend(leading_insts)
 
     def draw(self):
-        insts = []
+        insts = self._leading_insts[:]
         for x in self._shapes:
             x.instructions(insts)
 
