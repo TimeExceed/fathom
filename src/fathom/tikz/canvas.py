@@ -31,7 +31,7 @@ class Canvas:
             self._leading_insts.extend(leading_insts)
 
     def draw(self):
-        insts = self._leading_insts[:]
+        insts = []
         for x in self._shapes:
             x.instructions(insts)
 
@@ -42,11 +42,13 @@ class Canvas:
 \pagestyle{{empty}}
 {}
 \begin{{document}}
-\begin{{tikzpicture}}
+{}\begin{{tikzpicture}}
 {}
 \end{{tikzpicture}}
 \end{{document}}
-'''.format('\n'.join(self._preamble), '\n'.join(insts))
+'''.format('\n'.join(self._preamble),
+           '\n'.join(self._leading_insts) + '\n' if self._leading_insts else '',
+           '\n'.join(insts))
 
     # pylint: disable=no-self-use
 

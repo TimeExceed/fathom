@@ -8,15 +8,15 @@ import fathom.tikz as tikz
 \usepackage{tikz}
 \pagestyle{empty}
 xxx
-yyy
 \begin{document}
+yyy
 \begin{tikzpicture}
 
 \end{tikzpicture}
 \end{document}
 ''')
 def preamble():
-    canvas = tikz.Canvas(preamble=['xxx', 'yyy'])
+    canvas = tikz.Canvas(preamble=['xxx'], leading_instructions=['yyy'])
     return canvas.draw()
 
 
