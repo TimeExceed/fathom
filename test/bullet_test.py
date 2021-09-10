@@ -1,8 +1,8 @@
 import testa
 from fathom import Point, ORIGIN
 import fathom.tikz as tikz
-import fathom.tikz.colors as colors
-import fathom.tikz.line_styles as line_styles
+import fathom.colors as colors
+import fathom.line_styles as line_styles
 
 @testa.is_(expect=r'''
 \documentclass[UTF8]{ctexart}

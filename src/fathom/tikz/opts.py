@@ -1,7 +1,7 @@
-from typing import Union
-from . import colors
-from . import line_styles
-from . import corner_styles
+from typing import Union, List
+from .. import colors
+from .. import line_styles
+from .. import corner_styles
 from .utils import *
 
 # pylint: disable=protected-access
@@ -28,6 +28,15 @@ def get_line_style(kws) -> line_styles._LineStyle:
 def get_corner_style(kws) -> Union[corner_styles._Sharp, corner_styles.Rounded]:
     return kws.get('corner_style', corner_styles.SHARP)
 
+def format_color(
+    color: Union[colors._PredefinedColor, colors._ScaledColor, colors._MixedColor]) -> str:
+    if isinstance(color, colors._PredefinedColor):
+        return repr(color)
+    elif isinstance(color, colors._ScaledColor):
+        return '{}!{:.0f}'.format(color.base, color.ratio)
+    else:
+        assert isinstance(color, colors._MixedColor), type(color)
+        return '!'.join([format_color(x) for x in color.mixes])
 
 def draw_cmd(shape, additional_opts=None) -> str:
     if shape._pen_color is colors.INVISIBLE:
@@ -35,14 +44,14 @@ def draw_cmd(shape, additional_opts=None) -> str:
 
     opts = []
 
-    if additional_opts is not None:
-        opts.extend(additional_opts)
-
     if shape._pen_color is not colors.BLACK:
-        opts.append('color={}'.format(shape._pen_color))
+        opts.append('color={}'.format(format_color(shape._pen_color)))
 
     if shape._line_style is not line_styles.SOLID:
         opts.append('{}'.format(shape._line_style))
+
+    if additional_opts is not None:
+        opts.extend(additional_opts)
 
     if len(opts) == 0:
         return r'\draw'

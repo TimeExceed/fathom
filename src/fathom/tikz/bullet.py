@@ -1,6 +1,6 @@
 from .circle import Circle
 from .opts import *
-from . import colors
+from .. import colors
 
 class Bullet:
     def __init__(self, **kws):
