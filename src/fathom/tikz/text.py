@@ -1,7 +1,7 @@
 from fathom.geometry import Point
 from .utils import format_point
 from .opts import *
-from . import locations
+from .. import locations
 
 class Text:
     def __init__(self, **kws):

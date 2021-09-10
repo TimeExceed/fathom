@@ -1,9 +1,10 @@
 __all__ = ['Rectangle', 'Triangle', 'Polygon']
 
+from typing import Union, List
 import fathom.geometry as geo
 from .utils import *
 from .opts import *
-from . import corner_styles
+from .. import corner_styles
 
 class _PolygonBase:
     def __init__(self, skeleton, kws):
@@ -19,9 +20,7 @@ class _PolygonBase:
     def instructions(self, insts):
         more_opts = []
 
-        if self._corner_style is not corner_styles.SHARP:
-            rc = '{}'.format(self._corner_style)
-            more_opts.append(rc)
+        draw_corner(more_opts, self._corner_style)
 
         vertices = [format_point(x) for x in self._geo.vertices()]
         vertices = '--'.join(vertices)
@@ -40,6 +39,11 @@ class _PolygonBase:
                 cmd=draw,
                 vertices=vertices,
             ))
+
+def draw_corner(opts: List[str], corner: Union[corner_styles._Sharp, corner_styles.Rounded]):
+    if corner is not corner_styles.SHARP:
+        opt = 'rounded corners={}'.format(format_length(corner.radius))
+        opts.append(opt)
 
 class Polygon(_PolygonBase):
     def __init__(self, **kws):

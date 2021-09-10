@@ -1,7 +1,3 @@
-__all__ = ['Canvas', 'colors', 'line_styles', 'locations', 'corner_styles']
+__all__ = ['Canvas']
 
-from . import colors
-from . import line_styles
-from . import locations
-from . import corner_styles
 from .canvas import Canvas

@@ -51,11 +51,8 @@ VIOLET = _PredefinedColor('violet')
 
 class _ScaledColor:
     def __init__(self, base, ratio):
-        self._base = base
-        self._ratio = ratio
-
-    def __repr__(self):
-        return '{}!{:.0f}'.format(self._base, self._ratio)
+        self.base = base
+        self.ratio = ratio
 
     def mix(self, other: Union[_PredefinedColor, _ScaledColor]) -> _MixedColor:
         return _MixedColor([self, other])
@@ -63,12 +60,9 @@ class _ScaledColor:
 
 class _MixedColor:
     def __init__(self, mixes):
-        self._mixes = mixes
-
-    def __repr__(self):
-        return '!'.join(['{}'.format(x) for x in self._mixes])
+        self.mixes = mixes
 
     def mix(self, other: Union[_PredefinedColor, _ScaledColor]) -> _MixedColor:
-        mixes = self._mixes[:]
+        mixes = self.mixes[:]
         mixes.append(other)
         return _MixedColor(mixes)

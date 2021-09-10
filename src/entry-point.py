@@ -51,7 +51,7 @@ def convert(pdf, args):
            cwd=parent).check_returncode()
     new_files = set(x for x in parent.iterdir())
     out = new_files - files
-    assert len(out) == 1
+    assert len(out) == 1, 'Too large a figure it is!'
     out = list(out)[0]
     return out
 
