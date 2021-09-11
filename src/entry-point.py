@@ -62,10 +62,13 @@ def copy_back(result, output):
 if __name__ == '__main__':
     drawer, output, args = parse_args()
     file_format = determine_file_format(output)
-    args.append('-%s' % file_format)
     pdf = draw(drawer)
     pdf2 = crop(pdf)
-    out = convert(pdf2, args)
+    if file_format == 'pdf':
+        out = pdf2
+    else:
+        args.append('-%s' % file_format)
+        out = convert(pdf2, args)
     copy_back(out, output)
     
     
