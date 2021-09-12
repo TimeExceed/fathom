@@ -100,3 +100,7 @@ class Canvas:
     @_add_shape
     def new_little_man(self, **kws):
         return little_man.LittleMan(**kws)
+
+    @_add_shape
+    def new_diamond(self, **kws):
+        return polygon.Diamond(**kws)

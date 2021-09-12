@@ -257,5 +257,44 @@ def triangle_intersect_west():
     t = Triangle(vertices=[Point(1, 1), Point(2, 4), Point(3, 1)])
     return t.intersect_from_center(Point(1, 2))
 
+
+@testa.is_(
+    expect=[
+        Point(-1, 0),
+        Point(0, 2),
+        Point(1, 0),
+        Point(0, -2),
+    ]
+)
+def diamond_ctor_cwh():
+    return Diamond(center=ORIGIN, width=2, height=4).vertices()
+
+@testa.is_(
+    expect=[
+        Point(-1, 0),
+        Point(0, 2),
+        Point(1, 0),
+        Point(0, -2),
+    ]
+)
+def diamond_ctor_left_top():
+    return Diamond(left=Point(-1, 0), top=Point(0, 2)).vertices()
+
+@testa.is_(
+    expect=[
+        Point(-1, 0),
+        Point(0, 2),
+        Point(1, 0),
+        Point(0, -2),
+    ]
+)
+def diamond_ctor_vertices():
+    return Diamond(vertices=[
+        Point(-1, 0),
+        Point(0, 2),
+        Point(1, 0),
+        Point(0, -2),
+    ]).vertices()
+
 if __name__ == '__main__':
     testa.main()
