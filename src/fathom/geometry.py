@@ -196,7 +196,17 @@ class Rectangle(WithVertices):
                 Point(-half_width, -half_height),
             ]
             self._vertices = [p + center for p in corners]
+        elif 'lower_left' in kws and 'upper_right' in kws:
+            lower_left = kws['lower_left']
+            upper_right = kws['upper_right']
+            self._vertices = [
+                Point(lower_left.x, upper_right.y),
+                upper_right,
+                Point(upper_right.x, lower_left.y),
+                lower_left,
+            ]
         else:
+            assert 'vertices' in kws
             vertices = kws['vertices']
             top = Arrow(src=vertices[0], dst=vertices[1]).length()
             bottom = Arrow(src=vertices[2], dst=vertices[3]).length()
