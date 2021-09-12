@@ -58,3 +58,7 @@ class Rectangle(_PolygonBase):
 class Triangle(_PolygonBase):
     def __init__(self, **kws):
         super().__init__(geo.Triangle(**kws), kws)
+
+class Diamond(_PolygonBase):
+    def __init__(self, **kws):
+        super().__init__(geo.Diamond(**kws), kws)

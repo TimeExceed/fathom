@@ -144,6 +144,22 @@ def rectangle_rounded_corners():
         corner_style=corner_styles.DEFAULT_ROUNDED)
     return canvas.draw()
 
+@testa.is_(expect=r'''
+\documentclass[UTF8]{ctexart}
+\usepackage[a0paper]{geometry}
+\usepackage{tikz}
+\pagestyle{empty}
+
+\begin{document}
+\begin{tikzpicture}
+\draw (-2.00cm,0.00cm)--(0.00cm,1.50cm)--(2.00cm,0.00cm)--(0.00cm,-1.50cm)--cycle;
+\end{tikzpicture}
+\end{document}
+''')
+def draw_diamond():
+    canvas = tikz.Canvas()
+    canvas.new_diamond(center=ORIGIN, width=4, height=3)
+    return canvas.draw()
 
 if __name__ == '__main__':
     testa.main()

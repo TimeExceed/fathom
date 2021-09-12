@@ -180,8 +180,8 @@ class Circle:
 
 class Rectangle(WithVertices):
     def __init__(self, **kws):
-        center = kws.get('center')
-        if center is not None:
+        if 'center' in kws:
+            center = kws['center']
             assert isinstance(center, Point), type(center)
             width = kws['width']
             assert width > 0, width
@@ -287,6 +287,44 @@ class Polygon(WithVertices):
 
     def __repr__(self):
         return '(Polygon corners=[{}])'.format(
+            ', '.join('{}'.format(self.vertices())))
+
+    def vertices(self) -> List[Point]:
+        return self._vertices
+
+class Diamond(WithVertices):
+    def __init__(self, **kws) -> None:
+        if 'center' in kws and 'width' in kws and 'height' in kws:
+            center = kws['center']
+            assert isinstance(center, Point), type(center)
+            half_width = Point(kws['width'] / 2, 0)
+            half_height = Point(0, kws['height'] / 2)
+            left = center - half_width
+            top = center + half_height
+            right = center + half_width
+            bottom = center - half_height
+            self._vertices = [left, top, right, bottom]
+        elif 'left' in kws and 'top' in kws:
+            left = kws['left']
+            assert isinstance(left, Point), type(left)
+            top = kws['top']
+            assert isinstance(top, Point), type(top)
+            right = Point(top.x + (top.x - left.x), left.y)
+            bottom = Point(top.x, left.y - (top.y - left.y))
+            self._vertices = [left, top, right, bottom]
+        else:
+            assert 'vertices' in kws
+            vs = kws['vertices']
+            assert vs[0].x < vs[1].y, ' '.join([repr(x) for x in vs])
+            assert vs[1].x == vs[3].x, ' '.join([repr(x) for x in vs])
+            assert vs[1].x < vs[2].x, ' '.join([repr(x) for x in vs])
+            assert vs[3].y < vs[0].y, ' '.join([repr(x) for x in vs])
+            assert vs[0].y == vs[2].y, ' '.join([repr(x) for x in vs])
+            assert vs[0].y < vs[1].y, ' '.join([repr(x) for x in vs])
+            self._vertices = vs
+    
+    def __repr__(self) -> str:
+        return '(Diamond corners=[{}])'.format(
             ', '.join('{}'.format(self.vertices())))
 
     def vertices(self) -> List[Point]:
