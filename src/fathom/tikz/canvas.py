@@ -5,6 +5,7 @@ from . import circle
 from . import bullet
 from . import text
 from . import polygon
+from . import little_man
 
 
 def _add_shape(f):
@@ -95,3 +96,7 @@ class Canvas:
     @_add_shape
     def new_polygon(self, **kws):
         return polygon.Polygon(**kws)
+
+    @_add_shape
+    def new_little_man(self, **kws):
+        return little_man.LittleMan(**kws)
