@@ -139,6 +139,15 @@ def rectangle_ctor_vertices(c, w, h):
     ]
     return Rectangle(vertices=vertices)
 
+@testa.eq(
+    oracle=lambda c,w,h: Rectangle(center=c, width=w, height=h),
+    testbench=rectangle_tb,
+)
+def rectangle_ctor_diagonal(c, w, h):
+    return Rectangle(
+        lower_left=(c - Point(w/2, h/2)),
+        upper_right=(c + Point(w/2, h/2)))
+
 @testa.is_(expect=Point(2, 3))
 def rectangle_intersect_north():
     r = Rectangle(center=Point(2, 2), width=2, height=2)
