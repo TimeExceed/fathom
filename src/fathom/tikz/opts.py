@@ -33,7 +33,7 @@ def format_color(
     if isinstance(color, colors._PredefinedColor):
         return repr(color)
     elif isinstance(color, colors._ScaledColor):
-        return '{}!{:.0f}'.format(color.base, color.ratio)
+        return '{}!{:.0f}'.format(color.base, color.ratio * 100)
     else:
         assert isinstance(color, colors._MixedColor), type(color)
         return '!'.join([format_color(x) for x in color.mixes])

@@ -19,8 +19,8 @@ import fathom.colors as colors
 def scaled_color():
     canvas = tikz.Canvas()
     canvas.new_circle(center=Point(1, 1), radius=1,
-                      pen_color=colors.RED.scale(50),
-                      brush_color=colors.BLACK.scale(50))
+                      pen_color=colors.RED.scale(0.5),
+                      brush_color=colors.BLACK.scale(0.5))
     return canvas.draw()
 
 
