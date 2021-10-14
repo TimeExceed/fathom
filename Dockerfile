@@ -1,12 +1,13 @@
 FROM ubuntu:20.04
-COPY repeat.py /usr/local/bin/
+COPY repeat.sh /usr/local/bin/
 WORKDIR /opt/code/
 
-RUN apt-get update
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y tzdata python3 \
+RUN /usr/local/bin/repeat.sh apt-get update
+RUN DEBIAN_FRONTEND="noninteractive" /usr/local/bin/repeat.sh apt-get install -y \
+    tzdata  \
     && apt-get clean
-RUN /usr/local/bin/repeat.py apt-get install -y \
-    poppler-utils \
+RUN /usr/local/bin/repeat.sh apt-get install -y \
+    python3 poppler-utils \
     texlive texlive-lang-chinese texlive-pictures texlive-latex-extra \
     texlive-luatex texlive-xetex texlive-extra-utils \
     && apt-get clean
