@@ -68,7 +68,7 @@ def fill_cmd(shape, additional_opts=None) -> str:
         opts.extend(additional_opts)
 
     if shape._brush_color is not colors.BLACK:
-        opts.append('color={}'.format(shape._brush_color))
+        opts.append('color={}'.format(format_color(shape._brush_color)))
 
     if len(opts) == 0:
         return r'\fill'
