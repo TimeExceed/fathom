@@ -22,6 +22,9 @@ class Point:
     def center(self):
         return self
 
+    def copy(self):
+        return Point(self.x, self.y)
+
     def __add__(self, other: Point) -> Point:
         return Point(self.x + other.x, self.y + other.y)
 
