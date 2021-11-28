@@ -1,13 +1,12 @@
 import fathom.geometry as geo
 from .utils import *
 from .opts import *
+from .shape import Shape
 
-class Circle:
-    def __init__(self, **kws):
-        self._geo = geo.Circle(**kws)
-        self._pen_color = get_pen_color(kws)
-        self._brush_color = get_brush_color(kws)
-        self._line_style = get_line_style(kws)
+class Circle(Shape):
+    def __init__(self, *args, **kws):
+        super().__init__(kws)
+        self._geo = default_construct_shape(geo.Circle, args, kws)
 
     def get_skeleton(self):
         return self._geo

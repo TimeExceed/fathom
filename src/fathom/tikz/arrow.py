@@ -1,18 +1,20 @@
 import fathom.geometry as geo
 from fathom.geometry import Point
 from .opts import *
+from .shape import Shape
 
-class Arrow:
-    def __init__(self, **kws):
-        src = kws['src']
-        dst = kws['dst']
-        real_src = _calc_intersect(src, dst)
-        real_dst = _calc_intersect(dst, src)  # pylint: disable=arguments-out-of-order
-        self._geo = geo.Arrow(src=real_src, dst=real_dst)
-        self._pen_color = get_pen_color(kws)
-        self._brush_color = get_brush_color(kws)
-        self._line_style = get_line_style(kws)
+class Arrow(Shape):
+    def __init__(self, *args, **kws):
+        super().__init__(kws)
         self._arrow_position = kws['arrow_position']
+        self._geo = check_geoshape_in_args(geo.Arrow, args)
+        if not self._geo:
+            # cut arrow by src/dst edges
+            src = kws['src']
+            dst = kws['dst']
+            real_src = _calc_intersect(src, dst)
+            real_dst = _calc_intersect(dst, src)  # pylint: disable=arguments-out-of-order
+            self._geo = geo.Arrow(src=real_src, dst=real_dst)
 
     def instructions(self, insts):
         draw_pat = '{cmd} {src} -- {dst};'
@@ -34,10 +36,13 @@ class Arrow:
 def _calc_intersect(src, dst):
     if isinstance(src, Point):
         return src
-    src = src.get_skeleton()
+    elif not isinstance(src, geo.Shape):
+        src = src.get_skeleton()
     if isinstance(dst, Point):
         return src.intersect_from_center(dst)
-    return src.intersect_from_center(dst.get_skeleton().center())
+    elif not isinstance(dst, geo.Shape):
+        dst = dst.get_skeleton()
+    return src.intersect_from_center(dst.center())
 
 
 class _ArrowPos:  # pylint: disable=too-few-public-methods

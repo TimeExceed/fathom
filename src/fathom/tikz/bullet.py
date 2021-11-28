@@ -1,8 +1,9 @@
 from .circle import Circle
 from .opts import *
+from .shape import Shape
 from .. import colors
 
-class Bullet:
+class Bullet(Shape):
     def __init__(self, **kws):
         center = kws['center']
         radius = kws.get('radius', 0.05)

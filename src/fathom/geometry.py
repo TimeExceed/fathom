@@ -3,8 +3,14 @@ import math
 from itertools import cycle
 from typing import *
 from numbers import *
+from abc import ABC, abstractmethod
 
-class Point:
+class Shape(ABC):
+    @abstractmethod
+    def center(self):
+        pass
+
+class Point(Shape):
     def __init__(self, x: Real, y: Real) -> None:
         self.x = float(x)
         self.y = float(y)
@@ -50,7 +56,7 @@ def centroid(points: List[Point]) -> Point:
     return Point(x/len(points), y/len(points))
 
 
-class WithVertices:
+class WithVertices(Shape):
     def vertices(self) -> List[Point]:
         raise NotImplementedError
 
@@ -150,7 +156,7 @@ class Arrow(WithVertices):
             return True
         return (a*a + b*b - c*c) < 0
 
-class Circle:
+class Circle(Shape):
     def __init__(self, **kws):
         center = kws['center']
         assert isinstance(center, Point), type(center)

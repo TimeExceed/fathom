@@ -2,12 +2,13 @@ from .polygon import Rectangle
 from .circle import Circle
 from .arrow import Arrow, NONE
 from .opts import *
+from .shape import Shape
 from .. import geometry as geo
 from .. import colors
 
-class LittleMan:
-    def __init__(self, **kws):
-        self._bbox = geo.Rectangle(**kws)
+class LittleMan(Shape):
+    def __init__(self, *args, **kws):
+        self._bbox = default_construct_shape(geo.Rectangle, args, kws)
         brush_color = kws.get('brush_color', colors.INVISIBLE)
         pen_color = kws.get('pen_color', colors.BLACK)
         line_style = get_line_style(kws)
