@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:21.10
 COPY repeat.sh /usr/local/bin/
 COPY sources.list /etc/apt/
 WORKDIR /opt/code/
@@ -12,16 +12,15 @@ COPY --chown=1000:1000 bashrc /home/dockeruser/.bash_profile
 COPY --chown=1000:1000 bashrc /home/dockeruser/.bashrc
 COPY sudoers /etc/
 
-# install fathom
-RUN /usr/local/bin/repeat.sh apt-get update
-RUN DEBIAN_FRONTEND="noninteractive" /usr/local/bin/repeat.sh apt-get install -y \
+RUN repeat.sh apt-get update
+RUN DEBIAN_FRONTEND="noninteractive" repeat.sh apt-get install -y \
     tzdata  \
     && apt-get clean
-RUN /usr/local/bin/repeat.sh apt-get install -y \
+RUN repeat.sh apt-get install -y \
     python3 poppler-utils \
     texlive texlive-lang-chinese texlive-pictures texlive-latex-extra \
     texlive-luatex texlive-xetex texlive-extra-utils \
     && apt-get clean
-COPY src/fathom /usr/local/lib/python3.8/dist-packages/fathom
+COPY src/fathom /usr/local/lib/python3.9/dist-packages/fathom
 COPY src/entry-point.py /usr/local/bin/
 
