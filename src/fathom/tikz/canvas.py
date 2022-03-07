@@ -54,53 +54,53 @@ class Canvas:
     # pylint: disable=no-self-use
 
     @_add_shape
-    def new_line(self, **kws):
+    def new_line(self, *args, **kws):
         kws['arrow_position'] = arrow.NONE
-        return arrow.Arrow(**kws)
+        return arrow.Arrow(*args, **kws)
 
     @_add_shape
-    def new_arrow(self, **kws):
+    def new_arrow(self, *args, **kws):
         kws['arrow_position'] = arrow.TAIL
-        return arrow.Arrow(**kws)
+        return arrow.Arrow(*args, **kws)
 
     @_add_shape
-    def new_dblarrow(self, **kws):
+    def new_dblarrow(self, *args, **kws):
         kws['arrow_position'] = arrow.BOTH
-        return arrow.Arrow(**kws)
+        return arrow.Arrow(*args, **kws)
 
     @_add_shape
-    def new_backward_arrow(self, **kws):
+    def new_backward_arrow(self, *args, **kws):
         kws['arrow_position'] = arrow.HEAD
-        return arrow.Arrow(**kws)
+        return arrow.Arrow(*args, **kws)
 
     @_add_shape
-    def new_circle(self, **kws):
-        return circle.Circle(**kws)
+    def new_circle(self, *args, **kws):
+        return circle.Circle(*args, **kws)
 
     @_add_shape
-    def new_bullet(self, **kws):
-        return bullet.Bullet(**kws)
+    def new_bullet(self, *args, **kws):
+        return bullet.Bullet(*args, **kws)
 
     @_add_shape
     def new_text(self, **kws):
         return text.Text(**kws)
 
     @_add_shape
-    def new_rectangle(self, **kws):
-        return polygon.Rectangle(**kws)
+    def new_rectangle(self, *args, **kws):
+        return polygon.Rectangle(*args, **kws)
 
     @_add_shape
-    def new_triangle(self, **kws):
-        return polygon.Triangle(**kws)
+    def new_triangle(self, *args, **kws):
+        return polygon.Triangle(*args, **kws)
 
     @_add_shape
-    def new_polygon(self, **kws):
-        return polygon.Polygon(**kws)
+    def new_polygon(self, *args, **kws):
+        return polygon.Polygon(*args, **kws)
 
     @_add_shape
-    def new_little_man(self, **kws):
-        return little_man.LittleMan(**kws)
+    def new_little_man(self, *args, **kws):
+        return little_man.LittleMan(*args, **kws)
 
     @_add_shape
-    def new_diamond(self, **kws):
-        return polygon.Diamond(**kws)
+    def new_diamond(self, *args, **kws):
+        return polygon.Diamond(*args, **kws)
