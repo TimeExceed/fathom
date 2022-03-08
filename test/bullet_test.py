@@ -8,10 +8,11 @@ import fathom.line_styles as line_styles
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \fill (1.00cm,1.00cm) circle [radius=0.05cm];
 \end{tikzpicture}
 \end{document}
@@ -25,10 +26,11 @@ def bullet():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \fill[color=red] (1.00cm,1.00cm) circle [radius=0.05cm];
 \end{tikzpicture}
 \end{document}
@@ -42,10 +44,11 @@ def colored_bullet():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \fill (1.00cm,1.00cm) circle [radius=0.05cm];
 \draw[color=red] (1.00cm,1.00cm) circle [radius=0.06cm];
 \end{tikzpicture}
@@ -62,10 +65,11 @@ def rounded_bullet():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \fill (1.00cm,1.00cm) circle [radius=0.05cm];
 \draw[color=red] (1.00cm,1.00cm) circle [radius=0.10cm];
 \end{tikzpicture}
@@ -83,10 +87,11 @@ def bullet_sep():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \fill (1.00cm,1.00cm) circle [radius=0.05cm];
 \draw[color=red,dashed] (1.00cm,1.00cm) circle [radius=0.06cm];
 \end{tikzpicture}
@@ -104,10 +109,11 @@ def bullet_outer_line_style():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \fill (0.00cm,0.00cm) circle [radius=0.05cm];
 \draw (0.06cm,0.00cm) -- (1.00cm,0.00cm);
 \end{tikzpicture}

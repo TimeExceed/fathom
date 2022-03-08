@@ -9,10 +9,11 @@ import fathom.locations as locations
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \node at (1.00cm,1.00cm) {Hello};
 \end{tikzpicture}
 \end{document}
@@ -28,10 +29,11 @@ def text():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \node[color=red] at (1.00cm,1.00cm) {Hello};
 \end{tikzpicture}
 \end{document}
@@ -48,10 +50,11 @@ def colored_text():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \node[above] at (1.00cm,1.00cm) {Hello};
 \end{tikzpicture}
 \end{document}
@@ -68,10 +71,11 @@ def text_at_north():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \node[below] at (1.00cm,1.00cm) {Hello};
 \end{tikzpicture}
 \end{document}
@@ -88,10 +92,11 @@ def text_at_south():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \node[left] at (1.00cm,1.00cm) {Hello};
 \end{tikzpicture}
 \end{document}
@@ -108,10 +113,11 @@ def text_at_west():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \node[right] at (1.00cm,1.00cm) {Hello};
 \end{tikzpicture}
 \end{document}
@@ -128,10 +134,11 @@ def text_at_east():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \node[above right] at (1.00cm,1.00cm) {Hello};
 \end{tikzpicture}
 \end{document}
@@ -148,10 +155,11 @@ def text_at_northeast():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \node[below right] at (1.00cm,1.00cm) {Hello};
 \end{tikzpicture}
 \end{document}
@@ -168,10 +176,11 @@ def text_at_southeast():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \node[below left] at (1.00cm,1.00cm) {Hello};
 \end{tikzpicture}
 \end{document}
@@ -188,10 +197,11 @@ def text_at_southwest():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \node[above left] at (1.00cm,1.00cm) {Hello};
 \end{tikzpicture}
 \end{document}

@@ -40,10 +40,11 @@ class Canvas:
 \documentclass[UTF8]{{ctexart}}
 \usepackage[a0paper]{{geometry}}
 \usepackage{{tikz}}
+\usetikzlibrary{{arrows.meta,arrows}}
 \pagestyle{{empty}}
 {}
 \begin{{document}}
-{}\begin{{tikzpicture}}
+{}\begin{{tikzpicture}}[>=Stealth]
 {}
 \end{{tikzpicture}}
 \end{{document}}

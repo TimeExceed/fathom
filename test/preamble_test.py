@@ -6,11 +6,12 @@ import fathom.tikz as tikz
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 xxx
 \begin{document}
 yyy
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 
 \end{tikzpicture}
 \end{document}

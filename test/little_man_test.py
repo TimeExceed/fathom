@@ -8,10 +8,11 @@ import fathom.line_styles as line_styles
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \draw (0.00cm,1.19cm) circle [radius=0.80cm];
 \draw (0.00cm,0.40cm) -- (0.00cm,-0.99cm);
 \draw (-1.49cm,0.00cm) -- (1.49cm,0.00cm);
@@ -29,10 +30,11 @@ def draw_little_man():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \draw[color=red] (0.00cm,1.19cm) circle [radius=0.80cm];
 \draw[color=red] (0.00cm,0.40cm) -- (0.00cm,-0.99cm);
 \draw[color=red] (-1.49cm,0.00cm) -- (1.49cm,0.00cm);
@@ -50,10 +52,11 @@ def draw_red_little_man():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \fill[color=red] (0.00cm,1.19cm) circle [radius=0.80cm];
 \draw (0.00cm,1.19cm) circle [radius=0.80cm];
 \draw (0.00cm,0.40cm) -- (0.00cm,-0.99cm);
@@ -72,10 +75,11 @@ def draw_little_man_with_red_head():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \draw[dotted] (0.00cm,1.19cm) circle [radius=0.80cm];
 \draw[dotted] (0.00cm,0.40cm) -- (0.00cm,-0.99cm);
 \draw[dotted] (-1.49cm,0.00cm) -- (1.49cm,0.00cm);

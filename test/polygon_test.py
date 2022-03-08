@@ -9,10 +9,11 @@ import fathom.corner_styles as corner_styles
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \draw (0.50cm,2.00cm)--(1.50cm,2.00cm)--(1.50cm,0.00cm)--(0.50cm,0.00cm)--cycle;
 \end{tikzpicture}
 \end{document}
@@ -26,10 +27,11 @@ def draw_rectangle():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \draw (0.00cm,0.00cm)--(1.00cm,2.00cm)--(2.00cm,0.00cm)--cycle;
 \end{tikzpicture}
 \end{document}
@@ -43,10 +45,11 @@ def draw_triangle():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \draw (0.00cm,0.00cm)--(1.00cm,2.00cm)--(2.00cm,0.00cm)--cycle;
 \end{tikzpicture}
 \end{document}
@@ -60,10 +63,11 @@ def draw_polygon():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \draw[color=red] (0.50cm,2.00cm)--(1.50cm,2.00cm)--(1.50cm,0.00cm)--(0.50cm,0.00cm)--cycle;
 \end{tikzpicture}
 \end{document}
@@ -81,10 +85,11 @@ def rectangle_pen_color():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \fill[color=red] (0.50cm,2.00cm)--(1.50cm,2.00cm)--(1.50cm,0.00cm)--(0.50cm,0.00cm)--cycle;
 \end{tikzpicture}
 \end{document}
@@ -103,10 +108,11 @@ def rectangle_brush_color():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \draw[dashed] (0.50cm,2.00cm)--(1.50cm,2.00cm)--(1.50cm,0.00cm)--(0.50cm,0.00cm)--cycle;
 \end{tikzpicture}
 \end{document}
@@ -124,10 +130,11 @@ def rectangle_line_style():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \fill[rounded corners=0.15cm,color=red] (0.50cm,2.00cm)--(1.50cm,2.00cm)--(1.50cm,0.00cm)--(0.50cm,0.00cm)--cycle;
 \draw[rounded corners=0.15cm] (0.50cm,2.00cm)--(1.50cm,2.00cm)--(1.50cm,0.00cm)--(0.50cm,0.00cm)--cycle;
 \end{tikzpicture}
@@ -148,10 +155,11 @@ def rectangle_rounded_corners():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \draw (-2.00cm,0.00cm)--(0.00cm,1.50cm)--(2.00cm,0.00cm)--(0.00cm,-1.50cm)--cycle;
 \end{tikzpicture}
 \end{document}

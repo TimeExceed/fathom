@@ -8,10 +8,11 @@ import fathom.line_styles as line_styles
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \draw (1.00cm,1.00cm) circle [radius=1.00cm];
 \end{tikzpicture}
 \end{document}
@@ -25,10 +26,11 @@ def draw_circle():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 
 \end{tikzpicture}
 \end{document}
@@ -45,10 +47,11 @@ def invisible_circle():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \fill[color=red] (1.00cm,1.00cm) circle [radius=1.00cm];
 \end{tikzpicture}
 \end{document}
@@ -66,10 +69,11 @@ def fill_circle():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \draw[dashed] (1.00cm,1.00cm) circle [radius=1.00cm];
 \end{tikzpicture}
 \end{document}
@@ -86,10 +90,11 @@ def draw_dashed_circle():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \draw[dotted] (1.00cm,1.00cm) circle [radius=1.00cm];
 \end{tikzpicture}
 \end{document}

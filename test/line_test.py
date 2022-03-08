@@ -8,10 +8,11 @@ import fathom.line_styles as line_styles
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \draw (0.00cm,0.00cm) -- (1.00cm,0.00cm);
 \end{tikzpicture}
 \end{document}
@@ -25,10 +26,11 @@ def draw_line():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \draw[->] (0.00cm,0.00cm) -- (1.00cm,0.00cm);
 \end{tikzpicture}
 \end{document}
@@ -42,10 +44,11 @@ def draw_arrow():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \draw[<->] (0.00cm,0.00cm) -- (1.00cm,0.00cm);
 \end{tikzpicture}
 \end{document}
@@ -59,10 +62,11 @@ def draw_dblarrow():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \draw[<-] (0.00cm,0.00cm) -- (1.00cm,0.00cm);
 \end{tikzpicture}
 \end{document}
@@ -76,10 +80,11 @@ def draw_backward_arrow():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \draw (1.00cm,0.00cm) -- (3.00cm,0.00cm);
 \end{tikzpicture}
 \end{document}
@@ -94,10 +99,11 @@ def line_from_shape():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \draw (0.00cm,0.00cm) -- (2.00cm,0.00cm);
 \end{tikzpicture}
 \end{document}
@@ -115,10 +121,11 @@ def line_to_shape():
 \documentclass[UTF8]{ctexart}
 \usepackage[a0paper]{geometry}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,arrows}
 \pagestyle{empty}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=Stealth]
 \draw (1.00cm,0.00cm) -- (2.00cm,0.00cm);
 \end{tikzpicture}
 \end{document}
