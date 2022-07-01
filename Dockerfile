@@ -1,4 +1,4 @@
-FROM ubuntu:21.10
+FROM ubuntu:22.04
 COPY repeat.sh /usr/local/bin/
 COPY sources.list /etc/apt/
 WORKDIR /opt/code/
@@ -21,6 +21,6 @@ RUN repeat.sh apt-get install -y \
     texlive texlive-lang-chinese texlive-pictures texlive-latex-extra \
     texlive-luatex texlive-xetex texlive-extra-utils \
     && apt-get clean
-COPY src/fathom /usr/local/lib/python3.9/dist-packages/fathom
+COPY src/fathom /usr/local/lib/python3.10/dist-packages/fathom
 COPY src/entry-point.py /usr/local/bin/
 
