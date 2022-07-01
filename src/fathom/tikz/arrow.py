@@ -14,6 +14,8 @@ class Arrow(Shape):
             dst = kws['dst']
             real_src = _calc_intersect(src, dst)
             real_dst = _calc_intersect(dst, src)  # pylint: disable=arguments-out-of-order
+            assert real_dst is not None, '`dst` is inside `src`: %s -> %s' % (src, dst)
+            assert real_dst is not None, '`src` is inside `dst`: %s -> %s' % (dst, src)
             self._geo = geo.Arrow(src=real_src, dst=real_dst)
 
     def instructions(self, insts):
