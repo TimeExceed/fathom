@@ -20,7 +20,8 @@ RUN repeat.sh apt-get install -y \
     python3 poppler-utils \
     texlive texlive-lang-chinese texlive-pictures texlive-latex-extra \
     texlive-luatex texlive-xetex texlive-extra-utils \
-    && apt-get clean
+    && apt-get clean \
+    && su --command="luaotfload-tool --update" dockeruser
 COPY src/fathom /usr/local/lib/python3.10/dist-packages/fathom
 COPY src/entry-point.py /usr/local/bin/
 
