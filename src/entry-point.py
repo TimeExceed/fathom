@@ -10,7 +10,7 @@ def print_help():
     print('input.py\tThe python program to draw the figure.')
     print('output\t\tThe output file. Supports all file formats which pdftocairo supports.')
     print('ARGS\t\tOptional args given to pdftocairo except format specifier like -png. File format is determined automatically by the output file\'s suffix .')
-    
+
 def parse_args():
     import sys
     if len(sys.argv) < 3:
@@ -30,7 +30,7 @@ def draw(drawer):
     work_dir = Path('/tmp/work')
     work_dir.mkdir(parents=True)
     with open(work_dir.joinpath('x.tex'), 'w') as fp:
-        sp.run(['/usr/bin/python3', drawer],
+        sp.run(['/usr/bin/python3', '-B', drawer],
                cwd='/opt/code',
                stdout=fp).check_returncode()
     sp.run(['lualatex', 'x.tex'],
@@ -70,5 +70,5 @@ if __name__ == '__main__':
         args.append('-%s' % file_format)
         out = convert(pdf2, args)
     copy_back(out, output)
-    
-    
+
+
