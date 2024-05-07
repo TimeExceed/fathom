@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t fathom .
+podman build -t fathom .
