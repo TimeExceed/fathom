@@ -47,6 +47,26 @@ class Point(Shape):
         self.y -= other.y
         return self
 
+    def __mul__(self, mul: float) -> Point:
+        res = Point(self.x, self.y)
+        res *= mul
+        return res
+
+    def __imul__(self, mul: float) -> Point:
+        self.x *= mul
+        self.y *= mul
+        return self
+
+    def __truediv__(self, div: float) -> Point:
+        res = Point(self.x, self.y)
+        res /= div
+        return res
+
+    def __itruediv__(self, div: float) -> Point:
+        self.x /= div
+        self.y /= div
+        return self
+
 ORIGIN = Point(0, 0)
 
 def centroid(points: List[Point]) -> Point:
@@ -331,7 +351,7 @@ class Diamond(WithVertices):
             assert vs[0].y == vs[2].y, ' '.join([repr(x) for x in vs])
             assert vs[0].y < vs[1].y, ' '.join([repr(x) for x in vs])
             self._vertices = vs
-    
+
     def __repr__(self) -> str:
         return '(Diamond corners=[{}])'.format(
             ', '.join('{}'.format(self.vertices())))
